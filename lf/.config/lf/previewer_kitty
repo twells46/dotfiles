@@ -1,0 +1,61 @@
+#!/bin/sh
+
+k_draw() {
+  kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
+  exit 1
+}
+
+file="$1"
+w="$2"
+h="$3"
+x="$4"
+y="$5"
+CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
+mkdir "${CACHE_DIR}"
+
+#FILE_LOC="$(pwd)/${file}"
+TMP="$(head -c 1024 "${file}" | cksum -a md5)"
+CACHE_F="${CACHE_DIR}/${TMP##* }"
+
+case "$(file -Lb --mime-type "${file}")" in
+    image/*)
+        k_draw "${file}"
+        ;;
+    text/*|application/javascript|application/json)
+        highlight -O ansi "${file}"
+        ;;
+    application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib)
+        [ ! -e "${CACHE_F}" ] && tar -tf "${file}" > "${CACHE_F}"
+        echo "Contents:"
+        cat "${CACHE_F}"
+        ;;
+    application/zip)
+        [ ! -e "${CACHE_F}" ] && unzip -l "${file}" > "${CACHE_F}"
+        cat "${CACHE_F}"
+        ;;
+    application/pdf)
+        [ ! -e "${CACHE_F}" ] && pdftoppm -png -singlefile "${file}" > "${CACHE_F}"
+        k_draw "${CACHE_F}"
+        ;;
+    video/*|audio/*)
+        [ ! -e "${CACHE_F}" ] && ffmpegthumbnailer -s0 -i "${file}" -o "${CACHE_F}"
+        k_draw "${CACHE_F}"
+        ;;
+    application/octet-stream)
+        case "${file}" in
+            *.stl|*.STL)
+                [ ! -e "${CACHE_F}" ] && simple-thumbnailer-stl -i "${file}" -o "${CACHE_F}" -s 600 -S 16
+                k_draw "${CACHE_F}"
+                ;;
+            *.h264)
+                [ ! -e "${CACHE_F}" ] && ffmpegthumbnailer -s0 -i "${file}" -o "${CACHE_F}"
+                k_draw "${CACHE_F}"
+                ;;
+            *)
+        	file -b "$1"
+        	;;
+        esac
+        ;;
+    *)
+        file -b "$1"
+esac

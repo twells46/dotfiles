@@ -1,0 +1,4 @@
+helix/.config/helix/runtime
+*.zwc
+.*.zwc
+.zcomp*

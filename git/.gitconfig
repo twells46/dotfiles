@@ -1,0 +1,22 @@
+[user]
+	email = 173561638+twells46@users.noreply.github.com
+	name = twells46
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[includeIf "gitdir:~/"]
+	path = .gitconfig.local
+[init]
+	defaultBranch = main

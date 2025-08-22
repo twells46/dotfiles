@@ -1,0 +1,35 @@
+#!/bin/sh
+draw() {
+  kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
+  exit 1
+}
+
+file="$1"
+w="$2"
+h="$3"
+x="$4"
+y="$5"
+
+out="$(pistol $file)"
+offset="$(echo $out | wc -l)"
+y="$((y+offset))"
+
+echo "$out"
+
+case "$(file -Lb --mime-type "$file")" in
+  image/*)
+    draw "$file"
+    ;;
+  video/*)
+    # vidthumb is from here:
+    # https://raw.githubusercontent.com/duganchen/kitty-pistol-previewer/main/vidthumb
+    draw "$(vidthumb "$file" ffmpegthumbnailer)"
+    ;;
+  audio/*)
+    draw "$(vidthumb "$file" ffmpegthumbnailer)"
+    ;;
+  application/pdf)
+    draw "$(vidthumb "$file" magick)"
+    ;;
+esac
+

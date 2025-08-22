@@ -1,0 +1,53 @@
+# BEGIN_KITTY_FONTS
+font_family      family="Meslo LG M"
+font_size        11
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+disable_ligatures always
+text_composition_strategy 1.8 15
+# END_KITTY_FONTS
+
+enable_audio_bell no
+
+# Acme-ish colorscheme
+background #ffffea
+foreground #000000
+
+cursor #000000
+cursor_text_color #ffffea
+cursor_shape beam
+
+selection_background  #eeee9e
+selection_foreground #000000
+
+color0 #000000
+color1 #c21d14
+color2 #0fcc0c
+color3 #a78300
+color4 #006dce
+color5 #c44392
+color6 #00978a
+color7 #3a4d53
+
+color8 #000000
+color9 #f4342a
+color10 #065905
+color11 #ad8900
+color12 #0072d4
+color13 #ca4898
+color14 #009c8f
+color15 #909995
+
+# Maps
+enabled_layouts tall:bias=50;full_size=1;mirrored=false
+map ctrl+alt+c new_tab
+map ctrl+alt+j next_tab
+map ctrl+alt+k previous_tab
+
+map ctrl+shift+n launch --cwd=current
+map ctrl+j next_window
+map ctrl+k previous_window
+map ctrl+shift+j move_window_forward
+map ctrl+shift+k move_window_backward
+map ctrl+alt+x close_window

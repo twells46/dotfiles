@@ -1,0 +1,34 @@
+[env]
+TERM = "xterm-256color"
+
+[cursor]
+#style = {shape = "beam", blinking = "Off"}
+style.shape = "beam"
+
+[font]
+# Customized version of Apple Meslo, very normie
+normal = { family = "MesloLGS Nerd Font", style = "Mono" }
+
+# Patched spleen (font from OpenBSD)
+#normal = { family = "Spleen32x64Nerd Font Mono", style = "Regular" }
+
+#normal = { family = "Terminess Nerd Font", style = "Regular" }
+
+# Somewhat similar to spleen
+#normal = { family = "VictorMono Nerd Font Mono", style = "Regular" }
+#italic = { style = "Oblique" }
+size = 12
+
+[window]
+opacity = 1
+
+[general]
+import = [
+    "~/.config/alacritty/acme.toml"
+    #"~/.config/alacritty/catppuccin-latte.toml"
+    #"~/.config/alacritty/selenized-white.toml"
+    #"~/.config/alacritty/selenized-light.toml"
+    #"~/.config/alacritty/themes/themes/one_light.toml"
+    #"~/.config/alacritty/themes/themes/ayu_light.toml"
+]
+

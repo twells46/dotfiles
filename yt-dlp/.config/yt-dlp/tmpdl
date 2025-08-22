@@ -1,0 +1,10 @@
+--sub-langs en.*
+--embed-subs
+
+--sponsorblock-mark intro,outro,sponsor
+
+-f "bv*[height<=720]/ba*"
+-S "+vcodec:avc"
+--remux-video "mkv"
+
+-o "/tmp/yt/%(uploader)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"

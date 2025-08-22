@@ -1,0 +1,101 @@
+colorscheme catppuccin_latte
+
+# Lines numbers and relative numbers
+add-highlighter global/ number-lines -relative
+
+# Highlight matching pair
+add-highlighter global/ show-matching
+
+# Wrap on word boundaries
+add-highlighter global/ wrap -indent -word
+
+# Highlight trailing whitespace
+add-highlighter global/ regex \h+$ 0:Error
+
+set-option global scrolloff 5,5
+
+map global normal <c-v> ":comment-line<ret>"
+
+# System clipboard bindings
+map global user y "<a-|>wl-copy<ret>" -docstring "[Y]ank to system clipboard"
+map global user p "|wl-paste<ret>" -docstring "[P]ut from system clipboard"
+
+map global user c -docstring "[C]ompile the current file" ":compile<ret>"
+
+define-command -docstring "Compile the current document" compile %{
+    nop %sh{ {
+        compiler $"{kak_buffile}"
+    } > /dev/null 2>&1 < /dev/null & }
+}
+
+hook global BufCreate .*\.[Rr]md %{ set-option buffer filetype markdown }
+
+# Trick to make compiler run async
+#hook global BufWritePost .*\.(md|tex|ms)$ %{
+#    nop %sh{ {
+#        compiler $"{kak_buffile}"
+#    } > /dev/null 2>&1 < /dev/null & }
+#}
+# Simpler version
+# hook global BufWritePost .*\.(md|tex)$ %{
+#     echo -debug %sh{compiler "${kak_buffile}"}
+# }
+
+# Filetypes with two-space indentation
+hook global BufCreate .*\.(js|html|ts|tsx)$ %{
+    set-option buffer indentwidth 2
+}
+# Filetypes with four-space indentation
+hook global BufCreate .*\.(py)$ %{
+    set-option buffer indentwidth 4
+}
+
+define-command fzf %{
+    nop %sh{
+    	tmux splitw -t $(tmux display-message -p '#S:#{window_index}')
+    }
+}
+
+eval %sh{kak-lsp}
+hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
+    lsp-enable-window
+}
+
+remove-hooks global lsp-filetype-python
+hook -group lsp-filetype-python global BufSetOption filetype=python %{
+    # set-option buffer lsp_servers %{
+    #     [pylsp]
+    #     root_globs = ["requirements.txt", "setup.py", "pyproject.toml", ".git", ".hg"]
+    #     settings_section = "_"
+    #     [pylsp.settings._]
+    #     # See https://github.com/python-lsp/python-lsp-server#configuration
+    #     # pylsp.configurationSources = ["flake8"]
+    #     pylsp.plugins.jedi_completion.include_params = true
+    # }
+    set-option buffer lsp_servers %{
+        [pyright-langserver]
+        root_globs = ["requirements.txt", "setup.py", "pyproject.toml", "pyrightconfig.json", ".git", ".hg"]
+        args = ["--stdio"]
+    }
+    # set-option -add buffer lsp_servers %{
+    #     [ruff]
+    #     args = ["server", "--quiet"]
+    #     root_globs = ["requirements.txt", "setup.py", "pyproject.toml", ".git", ".hg"]
+    #     settings_section = "_"
+    #     [ruff.settings._.globalSettings]
+    #     organizeImports = true
+    #     fixAll = true
+    # }
+}
+
+map global user l ':enter-user-mode lsp<ret>' -docstring 'LSP mode'
+
+map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
+map global user h ':lsp-hover<ret>' -docstring 'LSP hover'
+
+map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+map global object f '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
+map global object t '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
+map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
+map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'

@@ -1,0 +1,15 @@
+cmd open ${{
+  case $(file --mime-type -Lb $f) in
+      text/*) kak $fx;;
+      *) for f in $fx; do xdg-open $f > /dev/null 2> /dev/null & done;;
+  esac
+}}
+
+set sixel false
+set previewer ~/.config/lf/previewer_kitty
+set cleaner ~/.config/lf/cleaner
+
+#set previewer ctpv
+#set cleaner ctpvclear
+#&ctpv -s $id
+#&ctpvquit $id

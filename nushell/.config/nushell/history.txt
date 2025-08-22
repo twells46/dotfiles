@@ -1,0 +1,28 @@
+clear
+ps
+ps | where mem > 10
+ps | where mem > 10 MB
+ps | where mem > 10MB
+ps | where mem > 10MB && status == running
+ps | where mem > 10MB and status == running
+ps | where status == running
+help ls | explore
+clear
+cd .config/nushell/
+ls
+kak config.nu
+clear
+help contains
+help ==
+help has
+help includes
+clear
+9 ls
+ls
+^9 ls
+rm dump.rdb
+clear
+pwd
+ls
+ls -al
+exit

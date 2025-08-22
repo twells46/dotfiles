@@ -1,0 +1,52 @@
+#!/bin/sh
+
+file="$1"
+CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
+mkdir "${CACHE_DIR}"
+
+FILE_LOC="$(pwd)/${file}"
+TMP="$(echo "$FILE_LOC" | cksum -a md5)"
+CACHE_F="${CACHE_DIR}/${TMP##* }"
+
+cache() {
+    exec "$@" "$file" > "${CACHE_F}"
+}
+
+case "$(file -Lb --mime-type "$file")" in
+    image/*)
+        chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "$file"
+        ;;
+    text/*|application/javascript|application/json)
+        highlight -O ansi "$file"
+        ;;
+    application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib)
+        [ ! -e "${CACHE_F}" ] && tar -tf "$file" > "${CACHE_F}"
+        echo "Contents:"
+        cat "${CACHE_F}"
+        ;;
+    application/zip)
+        [ ! -e "${CACHE_F}" ] && unzip -l "$file" > "${CACHE_F}"
+        cat "${CACHE_F}"
+        ;;
+    application/pdf)
+        [ ! -e "${CACHE_F}" ] && pdftoppm -png -singlefile "$file" > "${CACHE_F}"
+        chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "${CACHE_F}"
+        ;;
+    video/*|audio/*)
+        [ ! -e "${CACHE_F}" ] && ffmpegthumbnailer -s0 -i "$file" -o "${CACHE_F}"
+        chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "${CACHE_F}"
+        ;;
+    application/octet-stream)
+        case "$file" in
+            *.stl|*.STL)
+                [ ! -e "${CACHE_F}" ] && blender -b -P /home/tom/.local/bin/3d-render.py -i "$file" -o "${CACHE_F}"  >/dev/null 2>&1
+                chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "${CACHE_F}"
+                ;;
+            *)
+        	file -b "$1"
+        	;;
+        esac
+        ;;
+    *)
+        file -b "$1"
+esac
