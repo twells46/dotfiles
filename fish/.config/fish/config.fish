@@ -26,10 +26,10 @@ set -gx CUDA_CACHE_LOCATION "$XDG_CACHE_HOME/nvidia/computeCache"
 set -gx OLLAMA_NOHISTORY 1
 
 # Plan9
-set -gx PLAN9 "/usr/local/plan9"
-set -gxax PATH "$PLAN9/bin"
+#set -gx PLAN9 "/usr/local/plan9"
+#set -gxax PATH "$PLAN9/bin"
 
-set -gx MPD_HOST "$HOME/.local/share/mpd_socket"
+set -gx MPD_HOST "$XDG_RUNTIME_DIR/mpd/sock"
 
 # Misc.
 # set -gx XINITRC "$XDG_CONFIG_HOME/x11/xinitrc"
@@ -46,11 +46,12 @@ set -gx PYTHONSTARTUP "$XDG_CONFIG_HOME/python/pythonrc"
 set -gx SQLITE_HISTORY "$XDG_DATA_HOME/sqlite_history"
 set -gx FZF_DEFAULT_OPTS "--reverse --height=50%"
 set -gx _ZO_FZF_OPTS "--scheme=path --tiebreak=index --height=75% --reverse --border=rounded --no-scrollbar --preview=\"ls --color -al {2}\" --preview-window=right"
-set -gx BAT_THEME "base16"
+#set -gx BAT_THEME "base16"
 set -gx MANPAGER "less -R --use-color -Dd+r -Du+b"
 
 set -g fish_greeting
 if status is-interactive
     abbr --add lf lfcd
-
+    starship init fish | source
+    fzf --fish | source
 end
