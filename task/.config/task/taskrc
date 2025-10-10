@@ -10,7 +10,7 @@ hooks.location=~/.config/task/hooks
 
 # Color theme (uncomment one to use)
 #include light-16.theme
-#include light-256.theme
+include light-256.theme
 #include bubblegum-256.theme
 #include dark-16.theme
 #include dark-256.theme
@@ -25,3 +25,15 @@ hooks.location=~/.config/task/hooks
 #include solarized-light-256.theme
 #include no-color.theme
 
+default.command=gtd
+
+uda.gtd.type=string
+uda.gtd.label=Status
+uda.gtd.values=later,now,done
+
+report.gtd.description=List of open tasks doing now
+report.gtd.columns=id,depends,priority,project,tags,scheduled.countdown,due,until.remaining,description.count,urgency
+report.gtd.labels=ID,Deps,Priority,Project,Tags,Scheduled,Due,Until,Description,Urg
+report.gtd.sort=tags+/,urgency-,entry+,start-,due+,project+
+report.gtd.filter=gtd:now status:pending
+nag=

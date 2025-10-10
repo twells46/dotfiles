@@ -6,10 +6,10 @@
 --sponsorblock-mark intro,outro,sponsor
 
 #-S "+vcodec:avc"
---remux-video "mkv"
+#--remux-video "mkv"
 
--f "bv*[height<=1440]+ba/b"
--o "/home/tom/media/yt/%(uploader)s/%(playlist&{}|all)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
+-f "bv*[height<=1440]+ba/b[height<=1440]"
+-o "/home/tom/Videos/yt/%(uploader)s/%(playlist&{}|all)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
 #-o "/home/twells/media/yt/workout/%(title)s.%(ext)s"
 #-f "bv*[height<=1080]+ba/b[height<=1080]"
 
