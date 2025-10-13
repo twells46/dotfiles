@@ -21,7 +21,6 @@ map global user y "<a-|>wl-copy<ret>" -docstring "[Y]ank to system clipboard"
 map global user p "|wl-paste<ret>" -docstring "[P]ut from system clipboard"
 
 map global user c -docstring "[C]ompile the current file" ":compile<ret>"
-
 define-command -docstring "Compile the current document" compile %{
     nop %sh{ {
         compiler $"{kak_buffile}"
@@ -29,6 +28,9 @@ define-command -docstring "Compile the current document" compile %{
 }
 
 hook global BufCreate .*\.[Rr]md %{ set-option buffer filetype markdown }
+
+define-command fzf %{edit %sh{fd -t f | fzf --tmux --preview 'highlight -O ansi {}'}}
+map global user f -docstring "[F]ind a file (with fzf)" ":fzf<ret>"
 
 # Trick to make compiler run async
 #hook global BufWritePost .*\.(md|tex|ms)$ %{
@@ -50,11 +52,6 @@ hook global BufCreate .*\.(py)$ %{
     set-option buffer indentwidth 4
 }
 
-define-command fzf %{
-    nop %sh{
-    	tmux splitw -t $(tmux display-message -p '#S:#{window_index}')
-    }
-}
 
 eval %sh{kak-lsp}
 hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
@@ -85,6 +82,61 @@ hook -group lsp-filetype-python global BufSetOption filetype=python %{
     #     [ruff.settings._.globalSettings]
     #     organizeImports = true
     #     fixAll = true
+    # }
+}
+
+hook -group lsp-filetype-javascript global BufSetOption filetype=(?:javascript|typescript) %{
+    set-option buffer lsp_servers %{
+        [vtsls]
+        root_globs = ["package.json", "tsconfig.json", "jsconfig.json", ".git", ".hg"]
+        args = ["--stdio"]
+        settings_section = "_"
+        [vtsls.settings._]
+        quotePreference = "single"
+        # typescript.format.semicolons = "insert"
+    }
+    #set-option buffer lsp_servers %{
+    #    [typescript-language-server]
+    #    root_globs = ["package.json", "tsconfig.json", "jsconfig.json", ".git", ".hg"]
+    #    args = ["--stdio"]
+    #    settings_section = "_"
+    #    [typescript-language-server.settings._]
+    #    # quotePreference = "double"
+    #    # typescript.format.semicolons = "insert"
+    #}
+    # set-option buffer lsp_servers %{
+    #     [deno]
+    #     root_globs = ["package.json", "tsconfig.json", ".git", ".hg"]
+    #     args = ["lsp"]
+    #     settings_section = "deno"
+    #     [deno.settings.deno]
+    #     enable = true
+    #     lint = true
+    # }
+    # set-option buffer lsp_servers %opt{lsp_server_biome}
+    # set-option buffer lsp_servers %{
+    #     [eslint-language-server]
+    #     root_globs = [".eslintrc", ".eslintrc.json"]
+    #     args = ["--stdio"]
+    #     workaround_eslint = true
+    #     [eslint-language-server.settings]
+    #     codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
+    #     format = { enable = true }
+    #     quiet = false
+    #     rulesCustomizations = []
+    #     run = "onType"
+    #     validate = "on"
+    #     experimental = {}
+    #     problems = { shortenToSingleLine = false }
+    #     codeAction.disableRuleComment = { enable = true, location = "separateLine" }
+    #     codeAction.showDocumentation = { enable = false }
+    # }
+    # set-option buffer lsp_servers %{
+    #     [tailwindcss-language-server]
+    #     root_globs = ["tailwind.*"]
+    #     args = ["--stdio"]
+    #     [tailwindcss-language-server.settings.tailwindCSS]
+    #     editor = {}
     # }
 }
 
