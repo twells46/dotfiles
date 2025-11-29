@@ -2,3 +2,6 @@ helix/.config/helix/runtime
 *.zwc
 .*.zwc
 .zcomp*
+**/newsraft/feeds
+**/mpd/database
+**/supervise

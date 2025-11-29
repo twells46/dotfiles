@@ -1,0 +1,5 @@
+remaps
+shst &
+mpd
+exec dwm
+#exec dbus-run-session dwm

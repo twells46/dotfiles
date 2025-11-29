@@ -5,13 +5,30 @@
 
 --sponsorblock-mark intro,outro,sponsor
 
-#-S "+vcodec:avc"
-#--remux-video "mkv"
+--restrict-filenames
 
--f "bv*[height<=1440]+ba/b[height<=1440]"
--o "/home/tom/Videos/yt/%(uploader)s/%(playlist&{}|all)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
-#-o "/home/twells/media/yt/workout/%(title)s.%(ext)s"
-#-f "bv*[height<=1080]+ba/b[height<=1080]"
+--sleep-requests 10
+--sleep-interval 10
+--max-sleep-interval 15
+--sleep-subtitles 4
+
+-S "+vcodec:avc"
+--remux-video "mkv"
+
+--js-runtimes bun
+
+-o "/home/tom/media/yt/%(uploader)s/%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s"
+#-o "/home/tom/media/yt/%(uploader)s/%(playlist&{}|all)s/%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s"
+
+#-o "/home/tom/media/yt/%(uploader)s/%(playlist&{}|all)s/%(playlist_index&{}-|)s_%(title)s.%(ext)s"
+
+#-o "/home/tom/media/yt/%(playlist&{}|all)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
+#-o "/home/tom/media/yt/workout/%(title)s.%(ext)s"
+
+-f "bv*[height<=1080]+ba/b[height<=1080]"
+#-f "bv*[height<=1440]+ba/b"
+#-f "bv*[height<=1440]+ba/b[height<=1440]"
+#-f "bv*[height<=10000]+ba/b[height<=10000]"
 
 #-f "bv*[height<=720]+ba/b[height<=720]"
 #-o "/tmp/yt/%(uploader)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"

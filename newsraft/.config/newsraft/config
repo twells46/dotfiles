@@ -1,0 +1,8 @@
+copy-to-clipboard-command "xsel -ib"
+
+bind a mark-read
+bind u mark-unread
+bind U mark-unread-all
+bind d exec st yt-dlp '%l'
+bind v exec st mpv '%l'
+#bind a exec st mpv --no-video '%l'
