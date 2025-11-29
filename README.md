@@ -18,6 +18,6 @@ Most of the directories are pretty self-explanatory (just look up the program), 
 
 - **service**: `runit` user services managed using `turnstiled`.
 [More info](https://docs.voidlinux.org/config/services/user-services.html).
-- **service-env**: Environment variables for user services
-- **shell**: Useful environment variables for shell usage.
+- **service-env**: Environment variables for user services.
+- **shell**: Useful environment variables for interactive shell usage.
 This sets the variables for `dash` (user shell), which are inherited by `fish`, which I call explicitly when opening a terminal window (i.e. `st /usr/bin/fish`).
