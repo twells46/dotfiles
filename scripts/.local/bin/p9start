@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -p /tmp/9p/fonts
+mkdir -p /tmp/9p/acme
+fontsrv -m /tmp/9p/fonts &

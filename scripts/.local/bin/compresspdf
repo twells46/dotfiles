@@ -1,0 +1,8 @@
+#!/bin/sh
+
+file="${1}"
+ext="${file##*.}"
+base="${file%.*}"
+
+[ "${ext}" = "pdf" ] || exit
+gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${base}-compressed${ext}" "${file}"

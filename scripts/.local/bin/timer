@@ -1,0 +1,17 @@
+#!/bin/sh
+
+remaining="$1"
+
+while [ "$remaining" -gt 0 ]; do
+    printf '%s\r' "$(date -ud "@$remaining" +%T)"
+    remaining="$((remaining - 1))"
+    sleep 1
+done
+
+#mpv --really-quiet ~/media/music/Sabaton-The_Last_Stand/10.Winged_Hussars.flac
+#mpv --really-quiet ~/media/old-church-bell-6298.mp3 &
+#sleep 2
+#mpv --really-quiet ~/media/old-church-bell-6298.mp3 &
+#sleep 2
+#mpv --really-quiet ~/media/old-church-bell-6298.mp3 &
+#sleep 2

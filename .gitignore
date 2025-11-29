@@ -5,3 +5,5 @@ helix/.config/helix/runtime
 **/newsraft/feeds
 **/mpd/database
 **/supervise
+**/bin/bun
+**/bin/yt-dlp

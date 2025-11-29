@@ -1,0 +1,8 @@
+#!/bin/sh
+# Simple script which converts a video into h264 encoded mkv
+# Also takes as optional arg the number of threads to use
+
+t="$(nproc)"
+[ -n "$2" ] && t=$2
+
+ffmpeg -i "$1" -map 0 -c:v libx264 -threads "$t" -vf format=yuv420p -crf 20 -c:s copy -c:a copy "${1%.*}.mkv"

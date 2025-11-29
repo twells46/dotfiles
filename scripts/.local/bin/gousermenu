@@ -1,0 +1,4 @@
+#!/bin/sh
+
+uname="$(gopass ls --flat | wofi -dab -k /dev/null -p 'Username: ')"
+wl-copy "${uname##*/}"

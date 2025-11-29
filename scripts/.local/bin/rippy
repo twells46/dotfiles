@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if [ "$1" = "-o" ]; then
+    shift
+    offset="$1"
+fi
+
+cd "$HOME"/media/music || exit
+
+abcde -po flac,mp3 || exit
+
+echo "Ripped successfully"
+
+dir="$(eza -rs created | head -n1)"
+new="../mp3-mirror/$dir-mp3"
+
+if [ -n "$offset" ]; then
+    for i in "$dir"/*; do 
+        song_name="${i#*.}"
+        song_num="${i%%.*}"
+        song_num="${song_num##*/}"
+        song_num="${song_num#*0}"
+
+        new_fname="$(printf "%s/%02d.%s\n" "${i%%/*}" "$((song_num + offset + 1))" "$song_name")"
+        mv "$i" "$new_fname"
+    done
+fi
+
+
+sleep 1
+
+[ "$(mkdir ../mp3-mirror/"$new")" ] || printf "\e[0;33mmp3 directory already exists\nCopying files to existing directory\n\e[0m"
+mv -v "$dir"/*.mp3 "$new"
+
+printf "\e[0;32mmp3 mirror successful\e[0m\n"

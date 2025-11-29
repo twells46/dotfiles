@@ -1,0 +1,6 @@
+#!/bin/sh
+
+gopass ls --flat | wofi -dab -k /dev/null -p "Password: " | xargs -r gopass show -o | wl-copy
+
+# X11
+#gopass ls --flat | dmenu -p 'Password' | xargs -r gopass show -o | xdotool type --clearmodifiers --file -

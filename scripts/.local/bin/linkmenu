@@ -1,0 +1,96 @@
+#!/bin/sh
+
+# If link is set in the first arg, use it
+# Otherwise, read from stdin
+if [ -n "$1" ]; then
+    link="$1"
+else
+    read -r link
+fi
+
+tools="type
+surf
+surf-incognito
+firefox
+firefox-private
+yt-dlp
+yt-dlp-pl
+yt-dlp-audio
+mpv
+mpv-audio
+type
+bookmark"
+
+#[ "$1" = "dmenu" ] && tool="$(echo "$tools" | dmenu)" || tool="$1" # OLD VER
+#tool="$(echo "$tools" | dmenu)"
+tool="$(echo "$tools" | wofi -d)"
+
+
+
+# Sed scripts to clean invidious links
+# Fir"$TERM" one also removes playli"$TERM" context
+#ytcleaner='s|(https://).*(/watch\?v=.{11}).*|\1youtube.com\2|'
+#ytcleaner2='s|\(https://\).*/|\1youtube.com/|'
+yt_prefix="https://youtube.com/watch?v="
+
+case $tool in
+"surf")
+    notify-send -t 2000 "Opening in surf:" "$link"
+    surf -s "$link"
+    ;;
+*surf-incognito)
+    notify-send -t 2000 "Opening in surf:" "$link"
+    surf-incognito -s "$link"
+    ;;
+*firefox)
+    notify-send -t 2500 "Opening in Firefox:" "$link"
+    firefox "$link"
+    ;;
+*firefox-private)
+    notify-send -t 2500 "Opening in Firefox private:" "$link"
+    firefox --private-window "$link"
+    ;;
+*yt-dlp)
+    link="$yt_prefix${link##*watch?v=}"
+    link="${link%%&list*}"
+    #link="$(echo "$link" | sed -Ee "$ytcleaner")"
+    notify-send -t 2500 "Downloading video:" "$link"
+    "$TERM" -e /bin/sh -c "yt-dlp \"$link\"; sleep 5"
+    ;;
+*yt-dlp-pl)
+    link="$yt_prefix${link##*watch?v=}"
+    #link="$(echo "$link" | sed -e "$ytcleaner2")"
+    notify-send -t 2500 "Downloading video:" "$link"
+    "$TERM" -e /bin/sh -c "yt-dlp \"$link\"; sleep 5"
+    ;;
+*yt-dlp-audio)
+    link="$yt_prefix${link##*watch?v=}"
+    link="${link%%&list*}"
+    #link="$(echo "$link" | sed -Ee "$ytcleaner")"
+    notify-send -t 2500 "Downloading audio:" "$link"
+    "$TERM" -e yt-dlp -f "ba*" -x --audio-format opus --remux-video opus "$link"
+    ;;
+*mpv)
+    link="$yt_prefix${link##*watch?v=}"
+    link="${link%%&list*}"
+    #link="$(echo "$link" | sed -Ee "$ytcleaner")"
+    notify-send -t 2500 "Playing video:" "$link"
+    echo "$TERM"
+    "$TERM" -e /bin/sh -c "mpv \"$link\"; sleep 5"
+    #"$TERM" -e /bin/sh -c "mpv --ao=pulse \"$link\"; sleep 5"
+    ;;
+*mpv-audio)
+    link="$yt_prefix${link##*watch?v=}"
+    link="${link%%&list*}"
+    #link="$(echo "$link" | sed -Ee "$ytcleaner")"
+    notify-send -t 2500 "Playing audio:" "$link"
+    "$TERM" -e mpv --no-video "$link"
+    ;;
+*type)
+    notify-send -t 1000 "Typing" "$link"
+    xdotool type "$link"
+    ;;
+*bookmark)
+    save-bookmark "$link"
+    ;;
+esac

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+tmpdir="$(mktemp -d)"
+trap 'rm -rf $tmpdir' EXIT
+echo "$1"
+unzip "$1" -d "$tmpdir"
+#tar -xf "$1" --directory="$tmpdir"
+#nsxiv -f "$tmpdir"/*
+imv-wayland "$tmpdir"/*
