@@ -21,3 +21,5 @@ Most of the directories are pretty self-explanatory (just look up the program), 
 - **service-env**: Environment variables for user services.
 - **shell**: Useful environment variables for interactive shell usage.
 This sets the variables for `dash` (user shell), which are inherited by `fish`, which I call explicitly when opening a terminal window (i.e. `st /usr/bin/fish`).
+- **scripts**: Some scripts that I have written and used at various points in time.
+Many of them are only really useful for quick reference, but there are a few actually useful ones.
