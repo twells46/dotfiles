@@ -1,6 +1,15 @@
 #!/bin/sh
 
-gopass ls --flat | wofi -dab -k /dev/null -p "Password: " | xargs -r gopass show -o | wl-copy
+PW="$(gopass ls --flat | wmenu -l 10 -p 'Password: ' -f 'Liberation Mono 12px' | xargs -r gopass show -o)"
+# [t]ype or copy
+if [ "$1" = "-t" ] ; then
+	wtype "${PW}"
+else
+	wl-copy -o "${PW}"
+	( sleep 30 && wl-copy -c ) &
+fi
+
+#gopass ls --flat | wofi -dab -k /dev/null -p "Password: " | xargs -r gopass show -o | wl-copy
 
 # X11
 #gopass ls --flat | dmenu -p 'Password' | xargs -r gopass show -o | xdotool type --clearmodifiers --file -
