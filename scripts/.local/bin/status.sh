@@ -13,10 +13,10 @@ MEM="$(free -m | awk '/^Mem/{print $3}') MiB"
 read -r CPU_LOAD < /proc/loadavg
 CPU_LOAD="${CPU_LOAD%% *}"
 
-#read -r CPU_TEMP < /sys/class/thermal/thermal_zone0/temp
-#CPU_TEMP="$(($CPU_TEMP/1000))"
+read -r CPU_TEMP < /sys/class/thermal/thermal_zone0/temp
+CPU_TEMP="$(($CPU_TEMP/1000))"
 
 #BAT="$(cat /sys/class/power_supply/BAT1/capacity)%"
-read -r BAT < /sys/class/power_supply/BAT0/capacity
+read -r BAT < /sys/class/power_supply/BAT1/capacity
 
-echo "$VOL | $CPU_LOAD | $MEM | $BAT% | $DATE"
+echo "$VOL | $CPU_LOAD | ${CPU_TEMP} C | $MEM | $BAT% | $DATE"
