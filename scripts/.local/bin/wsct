@@ -1,0 +1,5 @@
+#!/bin/dash
+
+pkill wlsunset
+
+[ "$1" -ne "0" ] && (wlsunset -t "$1" &)
