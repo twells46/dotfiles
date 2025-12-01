@@ -23,26 +23,29 @@ set $menu wmenu-run -f 'Liberation Mono 12px'
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
+output eDP-1 {
+    mode 3200x2000@165Hz
+    scale 1.75
+    bg /home/tom/media/pix/bladerunner.jpg fill
+}
+
 ### Idle configuration
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 600 'swaylock -f -c 000000' \
+         timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
 #
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
+# This will lock your screen after 600 seconds of inactivity, then turn off
+# your displays after another 600 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
@@ -101,6 +104,9 @@ input type:touchpad {
 
 bindsym $mod+x exec librewolf
 bindsym $mod+Shift+x exec librewolf --private-window
+
+bindsym $mod+c exec firefox
+#bindsym $mod+Shift+c exec firefox --private-window
 
 #
 # Moving around:
@@ -228,8 +234,8 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec grim
 
-#default_border pixel 2
-#default_floating_border pixel 2
+default_border pixel 2
+default_floating_border pixel 2
 gaps outer 1
 gaps inner 2
 
@@ -237,19 +243,20 @@ gaps inner 2
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    font Liberation Mono 12px
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while /home/tom/.local/bin/status.sh; do sleep 2; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+bar swaybar_command waybar
+#bar {
+#    font Liberation Mono 12px
+#    position top
+#
+#    # When the status_command prints a new line to stdout, swaybar updates.
+#    # The default just shows the current date and time.
+#    status_command while /home/tom/.local/bin/status.sh; do sleep 2; done
+#
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+#}
 
 include /etc/sway/config.d/*
