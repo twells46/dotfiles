@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #VOL="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print $2}')"
-VOL="$(wpctl get-volume @DEFAULT_SINK@)"
+VOL="$(wpctl get-volume @DEFAULT_SINK@ 2>/dev/null)"
 VOL="${VOL#* }"
 #VOL="${VOL% *}"
 
