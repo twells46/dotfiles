@@ -4,6 +4,13 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+# Export env vars so systemd user services (like waybar) see them
+exec systemctl --user import-environment \
+    DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+# Kick off the sway-session target every time sway starts/reloads
+exec_always systemctl --user start sway-session.target
+
 xwayland enable
 
 font Liberation Mono 12px
@@ -33,6 +40,19 @@ output eDP-1 {
     mode 3200x2000@165Hz
     scale 1.75
     bg /home/tom/media/pix/bladerunner.jpg fill
+    position 0 0
+}
+output "Dell Inc. DELL E2416H G0RH169E2JFU" {
+    mode 1920x1080@60Hz
+    scale 1
+    bg /home/tom/media/pix/bladerunner.jpg fill
+    position 1828 -500
+}
+output "Samsung Electric Company LS32B30 HCNYA05090" {
+    mode 1920x1080@75Hz
+    scale 0.8
+    bg /home/tom/media/pix/bladerunner.jpg fill
+    position 1828 -500
 }
 
 ### Idle configuration
@@ -243,7 +263,7 @@ gaps inner 2
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar swaybar_command waybar
+#bar swaybar_command waybar
 #bar {
 #    font Liberation Mono 12px
 #    position top

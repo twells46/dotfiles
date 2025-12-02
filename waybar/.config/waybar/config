@@ -6,11 +6,27 @@
     // Define modules to use
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["wireplumber", "cpu", "memory", "battery", "clock", "systemd-failed-units"],
+    "modules-right": ["network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "clock", "systemd-failed-units"],
 
     // Configure modules
     "sway/window": {
         "max-length": 100
+    },
+    "network": {
+        "format": "{essid}({frequency}) {signalStrength}%",
+        "format-disconnected": "",
+        "tooltip-format": "<big>{ifname}</big>\n<b>{ipaddr}/{cidr}</b> via <b>{gwaddr}</b>",
+        "tooltip-format-disconnected": "",
+    },
+    "mpris": {
+        "dynamic-len": 50,
+    },
+    "bluetooth": {
+        "format": " {status} ({num_connections})",
+	"tooltip-format": "{controller_alias}\t{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\t\t{device_battery_percentage}%",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     },
     "wireplumber": {
         "format": "{volume}% {icon}",
