@@ -1,4 +1,11 @@
 #!/bin/sh
 
-uname="$(gopass ls --flat | wofi -dab -k /dev/null -p 'Username: ')"
-wl-copy "${uname##*/}"
+uname="$(gopass ls --flat | wmenu -l 10 -p 'Username: ' -f 'Liberation Mono 12px')"
+# [t]ype or copy
+if [ "$1" = "-t" ] ; then
+	wtype "${uname##*/}"
+else
+	wl-copy "${uname##*/}"
+	( sleep 30 && wl-copy -c ) &
+fi
+#wl-copy "${uname##*/}"
