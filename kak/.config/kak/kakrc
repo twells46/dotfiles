@@ -29,6 +29,37 @@ define-command -docstring "Compile the current document" compile %{
 
 hook global BufCreate .*\.[Rr]md %{ set-option buffer filetype markdown }
 
+# Pattern for communicating with kak via it's session socket
+define-command sockettest %{
+    nop %sh{ {
+        sleep 10
+        echo "eval -client '$kak_client' 'echo sleep ended'" |
+            kak -p ${kak_session}
+    } > /dev/null 2>&1 < /dev/null & }
+}
+
+# Pattern for communicating with kak via it's session socket
+define-command fzf_open %{
+    nop %sh{ {
+        sleep 10
+        echo "eval -client '$kak_client' 'echo sleep ended'" |
+            kak -p ${kak_session}
+    } > /dev/null 2>&1 < /dev/null & }
+}
+
+define-command fifotest %{
+    evaluate-commands %sh{
+         # Create a temporary fifo for communication
+         output=$(mktemp -d -t kak-temp-XXXXXXXX)/fifo
+         mkfifo ${output}
+         # run command detached from the shell
+         { fzf > ${output} } > /dev/null 2>&1 < /dev/null &
+         # Open the file in Kakoune and add a hook to remove the fifo
+         echo "edit! -fifo ${output} *buffer-name*
+               hook buffer BufClose .* %{ nop %sh{ rm -r $(dirname ${output})} }"
+    }
+}
+
 define-command fzf %{edit %sh{fd -t f | fzf --tmux --preview 'highlight -O ansi {}'}}
 map global user f -docstring "[F]ind a file (with fzf)" ":fzf<ret>"
 
