@@ -1,7 +1,6 @@
 # Dotfiles
 
 These are my personal dotfiles.
-The main branch tracks X11-compatable configuration, I will probably create another branch to track Wayland versions later.
 I do not use all of these programs all the time (that's why there are five different editor configs), so some may be broken or out of date.
 
 ## Usage
