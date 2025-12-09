@@ -8,4 +8,4 @@ helix/.config/helix/runtime
 **/bin/bun
 **/bin/yt-dlp
 **/bin/xonsh*
-history.txt
+history*

@@ -22,3 +22,9 @@ $env.config.history.file_format = "sqlite"
 $env.config.show_banner = false
 
 $env.PROMPT_COMMAND_RIGHT = ""
+
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+mkdir $"($nu.cache-dir)"
+carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
+
+$env.LS_COLORS = (vivid generate catppuccin-latte)
