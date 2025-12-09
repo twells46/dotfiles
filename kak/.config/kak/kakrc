@@ -17,8 +17,8 @@ set-option global scrolloff 5,5
 map global normal <c-v> ":comment-line<ret>"
 
 # System clipboard bindings
-map global user y "<a-|>xsel -ib<ret>" -docstring "[Y]ank to system clipboard"
-map global user p "|xsel -ob<ret>" -docstring "[P]ut from system clipboard"
+map global user y "<a-|>cp.sh<ret>" -docstring "[Y]ank to system clipboard"
+map global user p "|put.sh<ret>" -docstring "[P]ut from system clipboard"
 
 map global user c -docstring "[C]ompile the current file" ":compile<ret>"
 define-command -docstring "Compile the current document" compile %{
