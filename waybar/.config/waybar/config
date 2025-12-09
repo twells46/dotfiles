@@ -1,0 +1,57 @@
+{
+    // General settings
+    "layer": "top",
+    //"output": "eDP-1",
+
+    // Define modules to use
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "clock", "systemd-failed-units"],
+
+    // Configure modules
+    "sway/window": {
+        "max-length": 100
+    },
+    "network": {
+        "format": "{essid}({frequency}) {signalStrength}%",
+        "format-disconnected": "",
+        "tooltip-format": "<big>{ifname}</big>\n<b>{ipaddr}/{cidr}</b> via <b>{gwaddr}</b>\n{bandwidthDownBytes} {bandwidthUpBytes}",
+        "tooltip-format-disconnected": "",
+    },
+    "mpris": {
+        "dynamic-len": 50,
+    },
+    "bluetooth": {
+        "format": " {status} ({num_connections})",
+	"tooltip-format": "{controller_alias}\t{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\t\t{device_battery_percentage}%",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    },
+    "wireplumber": {
+        "format": "{volume}% {icon}",
+        "format-muted": " {volume}% ",
+        "format-icons": {
+            "default": ["", ""]
+        },
+    },
+    "cpu": {
+        "interval": 3,
+        "format-alt": "{load}"
+    },
+    "memory": {
+        "interval": 3,
+        "format": "{used:0.2f} GiB",
+        "format-alt": "{percentage}%",
+    },
+    "battery": {
+        "interval": 5,
+        "format": "{capacity}% {icon}   {power} W",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "interval": 30,
+        "format": "{:%a %b %d %I:%M %p}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    }
+}

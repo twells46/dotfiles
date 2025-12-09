@@ -7,3 +7,5 @@ helix/.config/helix/runtime
 **/supervise
 **/bin/bun
 **/bin/yt-dlp
+**/bin/xonsh*
+history.txt
