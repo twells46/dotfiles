@@ -40,7 +40,7 @@ output eDP-1 {
     mode 3200x2000@165Hz
     scale 2
     bg /home/tom/media/pix/bladerunner.jpg fill
-    position 0 375
+    position 3840 375
 }
 output "Dell Inc. DELL E2416H G0RH169E2JFU" {
     mode 1920x1080@60Hz
@@ -52,7 +52,16 @@ output "Samsung Electric Company LS32B30 HCNYA05090" {
     mode 1920x1080@75Hz
     scale 1
     bg /home/tom/media/pix/bladerunner.jpg fill
-    position 1600 0
+    position 1920 0
+    #scale 0.9
+    #scale_filter nearest
+    #transform 90
+}
+output "Samsung Electric Company LS32B30 HCNYB01020" {
+    mode 1920x1080@75Hz
+    scale 1
+    bg /home/tom/media/pix/bladerunner.jpg fill
+    position 0 0
     #scale 0.9
     #scale_filter nearest
     #transform 90

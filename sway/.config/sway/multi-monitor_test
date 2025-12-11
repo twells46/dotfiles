@@ -1,0 +1,99 @@
+
+# Multi-monitor setup
+set $out_left "Samsung Electric Company LS32B30 HCNYB01020"
+set $out_mid "Samsung Electric Company LS32B30 HCNYA05090"
+set $main eDP-1
+
+set $ws1a "1-a"
+set $ws2a "2-a"
+set $ws3a "3-a"
+set $ws4a "4-a"
+set $ws5a "5-a"
+set $ws6a "6-a"
+set $ws7a "7-a"
+set $ws8a "8-a"
+set $ws9a "9-a"
+set $ws0a "0-a"
+
+set $ws1b "1-b"
+set $ws2b "2-b"
+set $ws3b "3-b"
+set $ws4b "4-b"
+set $ws5b "5-b"
+set $ws6b "6-b"
+set $ws7b "7-b"
+set $ws8b "8-b"
+set $ws9b "9-b"
+set $ws0b "0-b"
+
+set $ws1c "1-c"
+set $ws2c "2-c"
+set $ws3c "3-c"
+set $ws4c "4-c"
+set $ws5c "5-c"
+set $ws6c "6-c"
+set $ws7c "7-c"
+set $ws8c "8-c"
+set $ws9c "9-c"
+set $ws0c "0-c"
+
+workspace $ws1a output $out_left
+workspace $ws2a output $out_left
+workspace $ws3a output $out_left
+workspace $ws4a output $out_left
+workspace $ws5a output $out_left
+workspace $ws6a output $out_left
+workspace $ws7a output $out_left
+workspace $ws8a output $out_left
+workspace $ws9a output $out_left
+workspace $ws0a output $out_left
+
+workspace $ws1b output $out_mid
+workspace $ws2b output $out_mid
+workspace $ws3b output $out_mid
+workspace $ws4b output $out_mid
+workspace $ws5b output $out_mid
+workspace $ws6b output $out_mid
+workspace $ws7b output $out_mid
+workspace $ws8b output $out_mid
+workspace $ws9b output $out_mid
+workspace $ws0b output $out_mid
+
+workspace $ws1c output $main
+workspace $ws2c output $main
+workspace $ws3c output $main
+workspace $ws4c output $main
+workspace $ws5c output $main
+workspace $ws6c output $main
+workspace $ws7c output $main
+workspace $ws8c output $main
+workspace $ws9c output $main
+workspace $ws0c output $main
+
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace $ws1a; workspace $ws1b; workspace $ws1c
+    bindsym $mod+2 workspace $ws2a; workspace $ws2b; workspace $ws2c
+    bindsym $mod+3 workspace $ws3a; workspace $ws3b; workspace $ws3c
+    bindsym $mod+4 workspace $ws4a; workspace $ws4b; workspace $ws4c
+    bindsym $mod+5 workspace $ws5a; workspace $ws5b; workspace $ws5c
+    bindsym $mod+6 workspace $ws6a; workspace $ws6b; workspace $ws6c
+    bindsym $mod+7 workspace $ws7a; workspace $ws7b; workspace $ws7c
+    bindsym $mod+8 workspace $ws8a; workspace $ws8b; workspace $ws8c
+    bindsym $mod+9 workspace $ws9a; workspace $ws9b; workspace $ws9c
+    bindsym $mod+0 workspace $ws0a; workspace $ws0b; workspace $ws0c
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
