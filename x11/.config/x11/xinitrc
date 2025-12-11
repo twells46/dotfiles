@@ -1,5 +1,6 @@
 remaps
 shst &
+dunst &
 mpd
 exec dwm
 #exec dbus-run-session dwm
