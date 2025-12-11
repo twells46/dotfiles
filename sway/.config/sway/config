@@ -137,8 +137,10 @@ input type:touchpad {
 bindsym $mod+x exec librewolf
 bindsym $mod+Shift+x exec librewolf --private-window
 
-bindsym $mod+c exec firefox
-#bindsym $mod+Shift+c exec firefox --private-window
+bindsym $mod+z exec firefox
+bindsym $mod+Shift+z exec firefox --private-window
+
+bindsym $mod+Shift+backslash exec foot ncmpcpp
 
 #
 # Moving around:
@@ -275,6 +277,10 @@ bindsym $mod+r mode "resize"
     bindsym XF86AudioPlay exec mpc toggle
     bindsym XF86AudioNext exec mpc next
     bindsym XF86AudioPrev exec mpc prev
+    bindsym $mod+backslash exec mpc toggle
+    bindsym $mod+bracketright exec mpc next
+    bindsym $mod+bracketleft exec mpc seek 0
+    bindsym $mod+Shift+bracketleft exec mpc prev
 
 default_border pixel 2
 default_floating_border pixel 2
