@@ -20,12 +20,24 @@ map global normal <c-v> ":comment-line<ret>"
 map global user y "<a-|>cp.sh<ret>" -docstring "[Y]ank to system clipboard"
 map global user p "|put.sh<ret>" -docstring "[P]ut from system clipboard"
 
-map global user c -docstring "[C]ompile the current file" ":compile<ret>"
+### A note on the /dev/null black magic ###
+# %sh is synchronous by design. It will wait for:
+# 1. The shell process to exit.
+# 2. All pipes (stdin, stdout, stderr) to close.
+#
+# The final `&` forks the process, satisfying the first condition, but all
+# pipes are left open. So, we need to "close" them:
+# - `> /dev/null` to "close" stdout
+# - `2>&1` redirects stderr to stdout, which in this case is `/dev/null` - "closed"
+# - `< /dev/null` "closes" stdin
+# Now, as far as kakoune is concerned, the process has finished and all pipes
+# are closed, so control immediately returns to the client.
 define-command -docstring "Compile the current document" compile %{
     nop %sh{ {
         compiler $"{kak_buffile}"
     } > /dev/null 2>&1 < /dev/null & }
 }
+map global user c -docstring "[C]ompile the current file" ":compile<ret>"
 
 hook global BufCreate .*\.[Rr]md %{ set-option buffer filetype markdown }
 
@@ -38,14 +50,34 @@ define-command sockettest %{
     } > /dev/null 2>&1 < /dev/null & }
 }
 
-# Pattern for communicating with kak via it's session socket
-define-command fzf_open %{
-    nop %sh{ {
-        sleep 10
-        echo "eval -client '$kak_client' 'echo sleep ended'" |
-            kak -p ${kak_session}
-    } > /dev/null 2>&1 < /dev/null & }
+# fzf file chooser
+define-command fzf_file %{
+    nop %sh{
+        # Create a temporary file for storage
+        tmp=$(mktemp -t kak-temp-XXXXXXXX)
+        foot -T 'foot_tmp' dash -c '
+            next=$(fzf --height=100% --layout=default --preview "highlight -O ansi {}")
+            printf "eval -client %s %%{ edit %s }\n" "$kak_client" "$next" |
+                kak -p "$kak_session"
+        ' > /dev/null 2>&1 < /dev/null &
+    }
 }
+map global user f -docstring "Browse [f]iles with fzf" ":fzf_file<ret>"
+
+# fzf buffer chooser
+define-command fzf_buffer %{
+    nop %sh{
+        # Create a temporary file for storage
+        tmp=$(mktemp -t kak-temp-XXXXXXXX)
+        foot -T 'foot_tmp' dash -c '
+            next=$(printf "%s\n" "$kak_buflist" | tr " " "\n" |
+                fzf --height=100% --layout=default --preview "highlight -O ansi {}")
+            printf "eval -client %s %%{ buffer %s }\n" "$kak_client" "$next" |
+                kak -p "$kak_session"
+        ' > /dev/null 2>&1 < /dev/null &
+    }
+}
+map global user b -docstring "Browse [b]uffers with fzf" ":fzf_buffer<ret>"
 
 define-command fifotest %{
     evaluate-commands %sh{
@@ -60,8 +92,6 @@ define-command fifotest %{
     }
 }
 
-define-command fzf %{edit %sh{fd -t f | fzf --tmux --preview 'highlight -O ansi {}'}}
-map global user f -docstring "[F]ind a file (with fzf)" ":fzf<ret>"
 
 # Trick to make compiler run async
 #hook global BufWritePost .*\.(md|tex|ms)$ %{
@@ -79,13 +109,12 @@ hook global BufCreate .*\.(js|html|ts|tsx)$ %{
     set-option buffer indentwidth 2
 }
 # Filetypes with four-space indentation
-hook global BufCreate .*\.(py)$ %{
+hook global BufCreate .*\.(py|json|jsonc)$ %{
     set-option buffer indentwidth 4
 }
 
-
 eval %sh{kak-lsp}
-hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
+hook global WinSetOption filetype=(haskell|rust|python|go|javascript|typescript|c|cpp) %{
     lsp-enable-window
 }
 

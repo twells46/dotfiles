@@ -1,5 +1,5 @@
 declare-option -docstring "shell command run to search for subtext in a file/directory" \
-    str grepcmd 'grep -RHn'
+    str grepcmd 'rg -LHn'
 
 provide-module grep %{
 
@@ -35,7 +35,7 @@ define-command -params .. -docstring %{
                hook -always -once buffer BufCloseFifo .* %{ nop %sh{ rm -r $(dirname ${output}) } }
            }"
 }}
-complete-command grep file 
+complete-command grep file
 
 hook -group grep-highlight global WinSetOption filetype=grep %{
     add-highlighter window/grep group
