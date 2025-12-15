@@ -3,7 +3,11 @@ $PROMPT = '{YELLOW}{env_name}{RESET}{GREEN}{cwd}{RESET} {RED}{last_return_code_i
 # XONSH WEBCONFIG END
 
 xontrib load coreutils
-xontrib load fish_completer
+#xontrib load fish_completer
+
+$CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+$COMPLETIONS_CONFIRM=True
+exec($(carapace _carapace))
 
 @aliases.register
 @aliases.return_command

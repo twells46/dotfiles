@@ -8,6 +8,7 @@ startup_screen = "media_library"
 media_library_primary_tag = album_artist
 
 main_window_color = black
+current_item_prefix = $(cyan)$r
 
 visualizer_data_source = "/tmp/mpd.fifo"
 visualizer_output_name = "my_fifo"
