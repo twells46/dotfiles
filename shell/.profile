@@ -17,6 +17,8 @@ export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$GOPATH/bin"
 
+. /home/tom/.local/share/ghcup/env
+
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 

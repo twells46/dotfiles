@@ -9,3 +9,12 @@ helix/.config/helix/runtime
 **/bin/yt-dlp
 **/bin/xonsh*
 history*
+
+*haskell*
+*ghc*
+*hpc*
+*cabal*
+*haddock*
+*hp2ps*
+*hsc2hs*
+scripts/.local/bin/stack*
