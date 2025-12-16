@@ -27,9 +27,9 @@ map global user p "|put.sh<ret>" -docstring "[P]ut from system clipboard"
 #
 # The final `&` forks the process, satisfying the first condition, but all
 # pipes are left open. So, we need to "close" them:
-# - `> /dev/null` to "close" stdout
-# - `2>&1` redirects stderr to stdout, which in this case is `/dev/null` - "closed"
-# - `< /dev/null` "closes" stdin
+# - `> /dev/null` to close stdout
+# - `2>&1` redirects stderr to stdout, which in this case is `/dev/null` - closed
+# - `< /dev/null` closes stdin
 # Now, as far as kakoune is concerned, the process has finished and all pipes
 # are closed, so control immediately returns to the client.
 define-command -docstring "Compile the current document" compile %{
