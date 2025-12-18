@@ -39,6 +39,8 @@ define-command -docstring "Compile the current document" compile %{
 }
 map global user c -docstring "[C]ompile the current file" ":compile<ret>"
 
+map global user = -docstring "Format current buffer with :format" ":format<ret>"
+
 hook global BufCreate .*\.[Rr]md %{ set-option buffer filetype markdown }
 
 # Pattern for communicating with kak via it's session socket
@@ -105,11 +107,14 @@ define-command fifotest %{
 # }
 
 # Filetypes with two-space indentation
-hook global BufCreate .*\.(js|html|ts|tsx)$ %{
+hook global BufCreate .*\.(js|html|ts|tsx|hs)$ %{
+    # Map tab key to `>` in normal mode -- inserts <indentwidth> spaces
+    map global insert <tab> '<a-;><a-gt>'
     set-option buffer indentwidth 2
 }
 # Filetypes with four-space indentation
 hook global BufCreate .*\.(py|json|jsonc)$ %{
+    map global insert <tab> '<a-;><a-gt>'
     set-option buffer indentwidth 4
 }
 

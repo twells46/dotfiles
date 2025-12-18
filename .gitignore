@@ -18,3 +18,4 @@ history*
 *hp2ps*
 *hsc2hs*
 scripts/.local/bin/stack*
+ormolu

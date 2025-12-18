@@ -6,6 +6,7 @@
 
 hook global BufCreate .*[.](hs) %{
     set-option buffer filetype haskell
+    set-option buffer formatcmd "ormolu --stdin-input-file ."
 }
 
 # Initialization
