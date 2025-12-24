@@ -6,7 +6,7 @@
     // Define modules to use
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "clock", "systemd-failed-units"],
+    "modules-right": ["network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "systemd-failed-units"],
 
     // Configure modules
     "sway/window": {
@@ -48,6 +48,17 @@
         "interval": 5,
         "format": "{capacity}% {icon}   {power} W",
         "format-icons": ["", "", "", "", ""]
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
     },
     "clock": {
         "interval": 30,
