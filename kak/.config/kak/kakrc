@@ -56,7 +56,6 @@ define-command sockettest %{
 define-command fzf_file %{
     nop %sh{
         # Create a temporary file for storage
-        tmp=$(mktemp -t kak-temp-XXXXXXXX)
         foot -T 'foot_tmp' dash -c '
             next=$(fzf --height=100% --layout=default --preview "highlight -O ansi {}")
             printf "eval -client %s %%{ edit %s }\n" "$kak_client" "$next" |
@@ -70,7 +69,6 @@ map global user f -docstring "Browse [f]iles with fzf" ":fzf_file<ret>"
 define-command fzf_buffer %{
     nop %sh{
         # Create a temporary file for storage
-        tmp=$(mktemp -t kak-temp-XXXXXXXX)
         foot -T 'foot_tmp' dash -c '
             next=$(printf "%s\n" "$kak_buflist" | tr " " "\n" |
                 fzf --height=100% --layout=default --preview "highlight -O ansi {}")
