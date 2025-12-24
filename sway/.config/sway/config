@@ -155,6 +155,9 @@ bindsym $mod+Shift+z exec firefox --private-window
 
 bindsym $mod+Shift+backslash exec foot ncmpcpp
 
+# Lock
+bindsym $mod+grave exec pkill -USR1 swayidle
+
 #
 # Moving around:
 #
