@@ -5,13 +5,34 @@ I do not use all of these programs all the time (that's why there are five diffe
 
 ## Usage
 
-I manage these using GNU stow.
-Clone this repo into your home directory, then stow whichever configurations you want to use.
-For example, to use the fish config:
+I manage these using [chezmoi](https://www.chezmoi.io/).
 
-```bash
-stow fish
+To get started locally, initialize `chezmoi` with this repo:
+
+```sh
+chezmoi init https://git.wellsth.com/dotfiles.git
 ```
+
+You can then see what would be changed:
+
+```sh
+chezmoi diff
+```
+
+If you're happy with the changes then apply them:
+
+```sh
+chezmoi apply
+```
+
+The above commands can be combined into a single command to initialize, checkout, and apply:
+
+```sh
+chezmoi init --apply --verbose https://git.wellsth.com/dotfiles.git
+```
+
+> This was taken from the [chezmoi docs](https://www.chezmoi.io/user-guide/setup/).
+> If something seems broken or for more detail, refer to that documentation.
 
 Most of the directories are pretty self-explanatory (just look up the program), but here's a quick explanation of the less obvious ones:
 
