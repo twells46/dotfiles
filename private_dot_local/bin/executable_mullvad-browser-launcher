@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sh -c '/home/twells/.local/src/mullvad-browser/Browser/start-mullvad-browser --detatch'

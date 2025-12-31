@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+tmp="$(mktemp --suffix='.png')"
+trap "rm ${tmp}" INT EXIT QUIT TERM ABRT
+
+new="${1%.*}.opus"
+
+ffmpegthumbnailer -i "$1" -s0 -q10 -m -o "${tmp}"
+ffmpeg -i "$1" -c:a copy -c:v none -c:s none "${new}"
+opustags -i --set-cover "${tmp}" "${new}"

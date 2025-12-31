@@ -1,0 +1,34 @@
+{
+  "theme": "One Light",
+  "agent_ui_font_size": 12.0,
+  "ui_font_weight": 350.0,
+  "ui_font_size": 12.0,
+  "buffer_line_height": "standard",
+  "buffer_font_weight": 400.0,
+  "buffer_font_size": 11.0,
+  "buffer_font_family": "Liberation Mono",
+  "buffer_font_features": {
+    "calt": false
+  },
+  "use_autoclose": false,
+  "languages": {
+    "TypeScript": {
+      "prettier": { "allowed": false }
+    },
+    "TSX": {
+      "prettier": { "allowed": false }
+    },
+    "JavaScript": {
+      "prettier": { "allowed": false }
+    }
+  },
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "workingDirectory": {
+          "mode": "auto"
+        }
+      }
+    }
+  }
+}

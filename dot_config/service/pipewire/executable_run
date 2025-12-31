@@ -1,0 +1,5 @@
+#!/bin/sh
+[ -r ./conf ] && . ./conf
+SVDIR=~/.config/service sv check dbus >/dev/null || exit 1
+exec 2>&1
+exec chpst -e "$TURNSTILE_ENV_DIR" /usr/bin/pipewire

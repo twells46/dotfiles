@@ -1,0 +1,2 @@
+#!/bin/sh
+tmux new-session -d -s simulator -c "/home/tom/kipr_sources/Simulator" 'toolbox enter -d ubuntu -r 22.04; zsh'\; split-window -h 'toolbox enter -d ubuntu -r 22.04; zsh'\; new-window -t simulator -c "/home/tom/kipr_sources/database" 'toolbox enter -d ubuntu -r 22.04;zsh'\; split-window -c "/home/tom/kipr_sources/database" -h 'toolbox enter -d ubuntu -r 22.04; zsh'\;

@@ -1,0 +1,19 @@
+[
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "g l": "vim::EndOfLine",
+      "g h": "vim::StartOfLine",
+      "x": "editor::SelectLine",
+      "w": "editor::SelectToNextWordEnd"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == select",
+    "bindings": {
+      "y": "editor::Copy",
+      "d": "editor::Cut",
+      "R": "editor::Paste"
+    }
+  }
+]

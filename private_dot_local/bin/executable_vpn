@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ "$(id -u)" != "0" ]; then
+    echo "Must be run as root"
+    exit 1
+fi
+
+# This script assumes you have some $XDG_RUNTIME_DIR set up.
+# The easiest way is systemd/elogind.
+FNAME="/run/user/1000/vpn"
+
+# Toggle vpn
+if [ -e "$FNAME" ]; then
+    read -r IF < /run/user/1000/vpn
+    echo "Bringing $IF down..."
+    wg-quick down "$IF"
+    rm "$FNAME"
+else
+    IF="$(find /etc/wireguard -type f -name "us-*" | shuf -n 1)"
+    echo "Bringing $IF up..."
+    wg-quick up "$IF"
+    echo "$IF" > $FNAME
+fi
+
+# Shorthand to [s]witch to a new server
+if [ "$1" = "-s" ] ; then
+    vpn
+else
+    true
+fi
+

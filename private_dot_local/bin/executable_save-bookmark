@@ -1,0 +1,15 @@
+#!/bin/sh
+
+bm_dir="$XDG_DATA_HOME/bookmarks"
+if [ -n "$1" ]; then
+    bm="$1"
+else
+    read -r bm
+fi
+
+if grep -q "^$bm" "$bm_dir"/*; then
+    notify-send -t 3000 "$bm Already bookmarked" "No new bookmark was added"
+else
+    echo "$bm" >>"$bm_dir/in_bm"
+    notify-send -t 3000 "$bm Bookmarked successfully" "New bookmark was added"
+fi

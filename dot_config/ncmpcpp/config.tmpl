@@ -1,0 +1,26 @@
+# vim: filetype=conf
+
+ncmpcpp_directory = "~/.config/ncmpcpp"
+lyrics_directory = "~/.local/share/lyrics"
+mpd_music_dir = "~/media/music"
+startup_screen = "media_library"
+
+media_library_primary_tag = album_artist
+
+{{- if eq .chezmoi.hostname "Aragorn" }}
+# Use dark mode at home
+main_window_color = black
+{{- else }}
+main_window_color = white
+{{- end }}
+current_item_prefix = $(cyan)$r
+
+visualizer_data_source = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_in_stereo = "yes"
+visualizer_type = "spectrum"
+visualizer_look = "+|"
+
+{{ include "dot_config/ncmpcpp/formats.conf" }}
+#execute_on_song_change="pkill -RTMIN+11 dwmblocks"
+#execute_on_player_state_change="pkill -RTMIN+11 dwmblocks"

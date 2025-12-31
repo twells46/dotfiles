@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.hostname "Aragorn" }}
+# Home laptop
+hwdec=vaapi
+gpu-api=opengl
+{{- else }}
+hwdec=auto
+{{- end }}
