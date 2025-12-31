@@ -155,6 +155,11 @@ bindsym $mod+Shift+z exec firefox --private-window
 
 bindsym $mod+Shift+backslash exec foot ncmpcpp
 
+bindsym $mod+p exec gopassmenu -t
+bindsym $mod+Shift+p exec gopassmenu
+bindsym $mod+o exec gousermenu -t
+bindsym $mod+Shift+o exec gousermenu
+
 # Lock
 bindsym $mod+grave exec pkill -USR1 swayidle
 bindsym $mod+Shift+grave exec pkill -USR2 waybar
