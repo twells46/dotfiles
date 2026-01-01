@@ -2,16 +2,15 @@
 
 {{- if eq .chezmoi.hostname "Aragorn" }}
 # Home laptop
-uname="$(gopass ls --flat | dmenu -l 10 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
+uname="$(gopass ls --flat | dmenu -l 15 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
-	xdotool type --clearmodifiers "${uname}"
+	xdotool type --delay 1 --clearmodifiers "${uname}"
 else
-	wl-copy -o "${uname}"
-	( sleep 30 && wl-copy -c ) &
+	printf "${uname}" | xsel -ib -t 30000
 fi
 {{- else }}
-uname="$(gopass ls --flat | wmenu -l 10 -p 'Username: ' -f 'Liberation Mono 12px' | xargs -r gopass show | sed -n '2p')"
+uname="$(gopass ls --flat | wmenu -l 15 -p 'Username: ' -f 'Liberation Mono 12px' | xargs -r gopass show | sed -n '2p')"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
 	wtype "${uname}"

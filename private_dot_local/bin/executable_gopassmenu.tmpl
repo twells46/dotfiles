@@ -2,16 +2,15 @@
 
 {{- if eq .chezmoi.hostname "Aragorn" }}
 # Home laptop
-PW="$(gopass ls --flat | dmenu -l 10 -p 'Password: ' | xargs -r gopass show | head -n1)"
+PW="$(gopass ls --flat | dmenu -l 15 -p 'Password: ' | xargs -r gopass show | head -n1)"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
-	xdotool type --clearmodifiers "${PW}"
+	xdotool type --delay 1 --clearmodifiers "${PW}"
 else
-	wl-copy -o "${PW}"
-	( sleep 30 && wl-copy -c ) &
+	printf "${PW}" | xsel -ib -t 30000
 fi
 {{- else }}
-PW="$(gopass ls --flat | wmenu -l 10 -p 'Password: ' -f 'Liberation Mono 12px' | xargs -r gopass show | head -n1)"
+PW="$(gopass ls --flat | wmenu -l 15 -p 'Password: ' -f 'Liberation Mono 12px' | xargs -r gopass show | head -n1)"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
 	wtype "${PW}"
