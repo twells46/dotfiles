@@ -1,6 +1,6 @@
 #!/bin/sh
 
-{{- if eq .chezmoi.hostname "Aragorn" }}
+{{- if eq .wm "x11" }}
 # Home laptop
 uname="$(gopass ls --flat | dmenu -l 15 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
 # [t]ype or copy

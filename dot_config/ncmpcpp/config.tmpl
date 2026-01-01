@@ -7,8 +7,7 @@ startup_screen = "media_library"
 
 media_library_primary_tag = album_artist
 
-{{- if eq .chezmoi.hostname "Aragorn" }}
-# Use dark mode at home
+{{- if eq .colors "dark" }}
 main_window_color = white
 {{- else }}
 main_window_color = black

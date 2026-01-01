@@ -1,6 +1,6 @@
 #!/bin/sh
 
-{{- if eq .chezmoi.hostname "Aragorn" }}
+{{- if eq .wm "x11" }}
 # Home laptop
 PW="$(gopass ls --flat | dmenu -l 15 -p 'Password: ' | xargs -r gopass show | head -n1)"
 # [t]ype or copy
