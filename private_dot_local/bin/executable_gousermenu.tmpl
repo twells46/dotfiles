@@ -1,0 +1,22 @@
+#!/bin/sh
+
+{{- if eq .chezmoi.hostname "Aragorn" }}
+# Home laptop
+uname="$(gopass ls --flat | dmenu -l 10 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
+# [t]ype or copy
+if [ "$1" = "-t" ] ; then
+	xdotool type --clearmodifiers "${uname}"
+else
+	wl-copy -o "${uname}"
+	( sleep 30 && wl-copy -c ) &
+fi
+{{- else }}
+uname="$(gopass ls --flat | wmenu -l 10 -p 'Username: ' -f 'Liberation Mono 12px' | xargs -r gopass show | sed -n '2p')"
+# [t]ype or copy
+if [ "$1" = "-t" ] ; then
+	wtype "${uname}"
+else
+	wl-copy -o "${uname}"
+	( sleep 30 && wl-copy -c ) &
+fi
+{{- end }}
