@@ -15,7 +15,7 @@ uname="$(gopass ls --flat | wmenu -l 15 -p 'Username: ' -f 'Liberation Mono 12px
 if [ "$1" = "-t" ] ; then
 	wtype "${uname}"
 else
-	wl-copy -o "${uname}"
+	wl-copy "${uname}"
 	( sleep 30 && wl-copy -c ) &
 fi
 {{- end }}

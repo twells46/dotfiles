@@ -15,7 +15,7 @@ PW="$(gopass ls --flat | wmenu -l 15 -p 'Password: ' -f 'Liberation Mono 12px' |
 if [ "$1" = "-t" ] ; then
 	wtype "${PW}"
 else
-	wl-copy -o "${PW}"
+	wl-copy "${PW}"
 	( sleep 30 && wl-copy -c ) &
 fi
 {{- end }}
