@@ -45,7 +45,7 @@ set $menu wmenu-run -f 'Liberation Mono 12px'
 
 output eDP-1 {
     mode 3200x2000@165Hz
-    scale 2
+    scale {{ .dp_scale }}
     bg ./bladerunner.jpg fill
     position 3840 375
 }
