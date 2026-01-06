@@ -6,7 +6,7 @@
     // Define modules to use
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "systemd-failed-units"],
+    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "systemd-failed-units"],
 
     // Configure modules
     "sway/window": {
@@ -20,6 +20,13 @@
     },
     "mpris": {
         "dynamic-len": 50,
+    },
+    "mpd": {
+        "server": "/run/user/1000/mpd.sock",
+        "format": "{album} - {artist} - {title}",
+        "album-len": 30,
+        "artist-len": 30,
+        "title-len": 30,
     },
     "bluetooth": {
         "format": " {status} ({num_connections})",
