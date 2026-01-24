@@ -2,6 +2,9 @@
 # Home laptop
 hwdec=vaapi
 gpu-api=opengl
+{{- else if eq .chezmoi.hostname "aurora" }}
+# Work laptop
+hwdec=vaapi
 {{- else }}
 hwdec=auto
 {{- end }}
