@@ -22,7 +22,7 @@ case "$(file -Lb --mime-type "$file")" in
     text/*|application/javascript|application/json)
         highlight -O ansi "$file"
         ;;
-    application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib)
+    application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib|application/x-tar)
         CACHE_F="$(find_cache)"
         [ ! -e "${CACHE_F}" ] && tar -tf "$file" > "${CACHE_F}"
         echo "Contents:"
