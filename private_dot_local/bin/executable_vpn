@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$(id -u)" != "0" ]; then
-    echo "Must be run as root"
+    printf "Must be run as root\n"
     exit 1
 fi
 
@@ -12,14 +12,14 @@ FNAME="/run/user/1000/vpn"
 # Toggle vpn
 if [ -e "$FNAME" ]; then
     read -r IF < /run/user/1000/vpn
-    echo "Bringing $IF down..."
+    printf "Bringing %s down...\n" "$IF"
     wg-quick down "$IF"
     rm "$FNAME"
 else
     IF="$(find /etc/wireguard -type f -name "us-*" | shuf -n 1)"
-    echo "Bringing $IF up..."
+    printf "Bringing %s up...\n" "$IF"
     wg-quick up "$IF"
-    echo "$IF" > $FNAME
+    printf "$IF" > $FNAME
 fi
 
 # Shorthand to [s]witch to a new server
