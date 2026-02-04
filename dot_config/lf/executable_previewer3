@@ -20,7 +20,20 @@ case "$(file -Lb --mime-type "$file")" in
         chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "$file"
         ;;
     text/*|application/javascript|application/json)
-        highlight -O ansi "$file"
+        printf "%s -> %s\n" "$file" "$(file -Lb --mime-type -- "$file")" >> log
+        base=$(basename -- "$file")
+        case "$base" in
+            Dockerfile|Containerfile)
+                highlight -O ansi -S dockerfile -- "$file" 2>&1
+                ;;
+            Makefile|makefile|GNUmakefile)
+                highlight -O ansi -S make -- "$file" 2>&1
+                ;;
+            *)
+                # auto-detect; if highlight can't determine a language, show raw text
+            	highlight -O ansi -- "$file" 2>/dev/null || cat -- "$file"
+            	;;
+        esac
         ;;
     application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib|application/x-tar)
         CACHE_F="$(find_cache)"
