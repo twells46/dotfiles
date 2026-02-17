@@ -20,7 +20,6 @@ case "$(file -Lb --mime-type "$file")" in
         chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "$file"
         ;;
     text/*|application/javascript|application/json)
-        printf "%s -> %s\n" "$file" "$(file -Lb --mime-type -- "$file")" >> log
         base=$(basename -- "$file")
         case "$base" in
             Dockerfile|Containerfile)
