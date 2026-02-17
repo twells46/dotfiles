@@ -1,4 +1,4 @@
-#colorscheme catppuccin_latte
+colorscheme catppuccin_latte
 
 # Lines numbers and relative numbers
 add-highlighter global/ number-lines -relative
@@ -61,9 +61,8 @@ define-command sockettest %{
 # fzf file chooser
 define-command fzf_file %{
     nop %sh{
-        # Create a temporary file for storage
-        foot -T 'foot_tmp' dash -c '
-            next=$(fzf --height=100% --layout=default --preview "highlight -O ansi {}")
+        foot -T "foot_tmp" dash -c '
+            next=$(fzf --height=100% --layout=default --preview "bat --theme \"Catppuccin Latte\" --color always -r :100 {}")
             printf "eval -client %s %%{ edit %s }\n" "$kak_client" "$next" |
                 kak -p "$kak_session"
         ' > /dev/null 2>&1 < /dev/null &
@@ -75,12 +74,12 @@ map global user f -docstring "Browse [f]iles with fzf" ":fzf_file<ret>"
 define-command fzf_buffer %{
     nop %sh{
         # Create a temporary file for storage
-        foot -T 'foot_tmp' dash -c '
+        kitty -T "kitty_tmp" -e dash -c '
             next=$(printf "%s\n" "$kak_buflist" | tr " " "\n" |
                 fzf --height=100% --layout=default --preview "highlight -O ansi {}")
             printf "eval -client %s %%{ buffer %s }\n" "$kak_client" "$next" |
                 kak -p "$kak_session"
-        ' > /dev/null 2>&1 < /dev/null &
+    ' > /dev/null 2>&1 < /dev/null &
     }
 }
 map global user b -docstring "Browse [b]uffers with fzf" ":fzf_buffer<ret>"

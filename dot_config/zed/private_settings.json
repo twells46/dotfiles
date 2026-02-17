@@ -1,34 +1,44 @@
 {
-  "theme": "One Light",
-  "agent_ui_font_size": 12.0,
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
   "ui_font_weight": 350.0,
-  "ui_font_size": 12.0,
-  "buffer_line_height": "standard",
+  "ui_font_size": 13.0,
+  "buffer_line_height": {
+    "custom": 1.1,
+  },
   "buffer_font_weight": 400.0,
-  "buffer_font_size": 11.0,
-  "buffer_font_family": "Liberation Mono",
+  "buffer_font_size": 12.0,
+  "buffer_font_family": ".ZedMono",
   "buffer_font_features": {
-    "calt": false
+    "calt": false,
   },
   "use_autoclose": false,
   "languages": {
     "TypeScript": {
-      "prettier": { "allowed": false }
+      "prettier": { "allowed": false },
     },
     "TSX": {
-      "prettier": { "allowed": false }
+      "prettier": { "allowed": false },
     },
     "JavaScript": {
-      "prettier": { "allowed": false }
-    }
+      "prettier": { "allowed": false },
+    },
   },
   "lsp": {
     "eslint": {
       "settings": {
         "workingDirectory": {
-          "mode": "auto"
-        }
-      }
-    }
-  }
+          "mode": "auto",
+        },
+      },
+    },
+  },
 }
