@@ -7,3 +7,6 @@ if status is-interactive
     # Set fish_key_bindings globally per 4.3 update instructions
     set --global fish_key_bindings fish_default_key_bindings
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/var/home/tom/.local/opt/google-cloud-sdk/path.fish.inc' ]; . '/var/home/tom/.local/opt/google-cloud-sdk/path.fish.inc'; end
