@@ -1,7 +1,7 @@
 # Dotfiles
 
 These are my personal dotfiles.
-I do not use all of these programs all the time (that's why there are five different editor configs), so some may be broken or out of date.
+I do not use all of these programs all the time (that's why there are five different text editor configs), so some may be broken or out of date.
 
 ## Usage
 
@@ -43,3 +43,14 @@ Most of the directories are pretty self-explanatory (just look up the program), 
 This sets the variables for `dash` (user shell), which are inherited by `fish`, which I call explicitly when opening a terminal window (i.e. `st /usr/bin/fish`).
 - **scripts**: Some scripts that I have written and used at various points in time.
 Many of them are only really useful for quick reference, but there are a few actually useful ones.
+
+## Chezmoi config
+
+I set a few custom variables in my chezmoi config to reconcile differences between my machines:
+
+- `gpg_key_git`: GPG key to use for git commit signing.
+- `git_email`: Email address to use for git.
+- `wm`: `wayland` or `x11`, mostly for helpers like `wl-clipboard` vs. `xsel`.
+- `colors`: `light` or `dark`, applies theming to a few programs.
+- `dp_scale`: Display scale for sway.
+- `fish_direct`: `true` or `false`. Should `fish` set environment variables directly?
