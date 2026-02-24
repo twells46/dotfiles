@@ -21,13 +21,13 @@
 -f "bv+ba/b"
 {{- end }}
 
--o "/home/tom/media/yt/%(uploader)s/%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s"
-#-o "/home/tom/media/yt/%(uploader)s/%(playlist&{}|all)s/%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s"
+-o "/home/tom/media/inbox/%(uploader)s/%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s"
+#-o "/home/tom/media/inbox/%(uploader)s/%(playlist&{}|all)s/%(upload_date>%Y-%m-%d)s_%(title)s.%(ext)s"
 
-#-o "/home/tom/media/yt/%(uploader)s/%(playlist&{}|all)s/%(playlist_index&{}-|)s_%(title)s.%(ext)s"
+#-o "/home/tom/media/inbox/%(uploader)s/%(playlist&{}|all)s/%(playlist_index&{}-|)s_%(title)s.%(ext)s"
 
-#-o "/home/tom/media/yt/%(playlist&{}|all)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
-#-o "/home/tom/media/yt/workout/%(title)s.%(ext)s"
+#-o "/home/tom/media/inbox/%(playlist&{}|all)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
+#-o "/home/tom/media/inbox/workout/%(title)s.%(ext)s"
 
 #-f "bv*[height<=720]+ba/b[height<=720]"
-#-o "/tmp/yt/%(uploader)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
+#-o "/tmp/inbox/%(uploader)s/%(playlist_index&{}-|)s%(title)s.%(ext)s"
