@@ -1,6 +1,21 @@
 #!/bin/sh
 
+{{ if eq .term_graphics "kitty" -}}
+draw() {
+	kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
+	exit 1
+}
+{{- else }}
+draw() {
+	chafa -f sixel -s "${w}x${h}" --animate off --polite on -t 1 --bg black "$1"
+}
+{{- end }}
+
 file="$1"
+w="$2"
+h="$3"
+x="$4"
+y="$5"
 
 find_cache() {
 	local CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
@@ -17,7 +32,7 @@ cache() {
 
 case "$(file -Lb --mime-type "$file")" in
     image/*)
-        chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "$file"
+        draw "${file}"
         ;;
     text/*|application/javascript|application/json)
         #printf "%s -> %s\n" "$file" "$(file -Lb --mime-type -- "$file")" >> log
@@ -49,19 +64,19 @@ case "$(file -Lb --mime-type "$file")" in
     application/pdf)
         CACHE_F="$(find_cache)"
         [ ! -e "${CACHE_F}" ] && pdftoppm -png -singlefile "$file" > "${CACHE_F}"
-        chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "${CACHE_F}"
+        draw "${CACHE_F}"
         ;;
     video/*|audio/*)
         CACHE_F="$(find_cache)"
         [ ! -e "${CACHE_F}" ] && ffmpegthumbnailer -s0 -i "$file" -o "${CACHE_F}"
-        chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "${CACHE_F}"
+        draw "${CACHE_F}"
         ;;
     application/octet-stream)
         case "$file" in
             *.stl|*.STL)
         	CACHE_F="$(find_cache)"
                 [ ! -e "${CACHE_F}" ] && blender -b -P /home/tom/.local/bin/3d-render.py -i "$file" -o "${CACHE_F}"  >/dev/null 2>&1
-                chafa -f sixel -s "$2x$3" --animate off --polite on -t 1 --bg black "${CACHE_F}"
+                draw "${CACHE_F}"
                 ;;
             *)
         	file -b "$1"
