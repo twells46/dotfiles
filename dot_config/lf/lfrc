@@ -1,11 +1,5 @@
-#set sixel true
 set previewer ~/.config/lf/previewer3
 #set cleaner ~/.config/lf/cleaner
-
-#set previewer ctpv
-#set cleaner ctpvclear
-#&ctpv -s $id
-#&ctpvquit $id
 
 cmd fzf_jump ${{
     res="$(fd -u -t d | fzf --reverse --header="Jump to location")"
@@ -35,3 +29,50 @@ cmd fzf_search ${{
         #--preview='~/.config/lf/cleaner; ~/.config/lf/previewer {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"'
 }}
 map gs :fzf_search
+
+cmd paste-cow &{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            if [ "$#" -eq 0 ]; then
+                lf -remote "send $id echoerr paste-cow: no file in copy/cut buffer"
+                exit
+            fi
+
+            first="true"
+            for file in "$@"; do
+                name="$(basename -- "$file")"
+                orig="$name"
+
+                count="0"
+                while [ -e "$name" ]; do
+                    name="$orig.~$((count += 1))~"
+                done
+
+                # Use -n instead of --update=none-fail for now (in case of TOCTOU)
+                # Upstream bug: https://bugs.gnu.org/70727
+                # The fix is unreleased as of writing
+                if ! out="$(cp -an --reflink=always -- "$file" "./$name" 2>&1)"; then
+                    if [ -n "$first" ]; then
+                        # It's only safe to fallback to lf's own paste on the first iteration
+                        lf -remote "send $id paste"
+                    elif [ -n "$out" ]; then
+                        lf -remote "send $id echoerr \"$(printf '%s' "$out" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+                    else
+                        lf -remote "send $id echoerr cp: failed"
+                    fi
+                    exit
+                fi
+                first=""
+            done
+
+            lf -remote "send $id echo \"\\033[0;32mCopied successfully (reflinked)\\033[0m\""
+            ;;
+        move) lf -remote "send $id paste";;
+    esac
+}}
+
+# use a different command name to avoid shadowing :paste
+map p paste-cow
