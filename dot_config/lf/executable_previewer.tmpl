@@ -39,14 +39,14 @@ case "$(file -Lb --mime-type "$file")" in
         base=$(basename -- "$file")
         case "$base" in
             Dockerfile|Containerfile)
-                highlight -O ansi -S dockerfile -- "$file" 2>&1
+                highlight -O ansi -S dockerfile --line-range=0-100 -- "$file" 2>&1
                 ;;
             Makefile|makefile|GNUmakefile)
-                highlight -O ansi -S make -- "$file" 2>&1
+                highlight -O ansi -S make --line-range=0-100 -- "$file" 2>&1
                 ;;
             *)
                 # If highlight can't determine a language, show raw text
-            	highlight -O ansi -- "$file" 2>/dev/null || cat -- "$file"
+            	highlight -O ansi --line-range=0-100 -- "$file" 2>/dev/null || head -n 100 -- "$file"
             	;;
         esac
         ;;

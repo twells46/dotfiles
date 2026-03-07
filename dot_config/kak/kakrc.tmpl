@@ -66,7 +66,7 @@ define-command sockettest %{
 define-command fzf_file %{
     nop %sh{
         foot -T "foot_tmp" dash -c '
-            next=$(fzf --height=100% --layout=default --preview "bat --theme \"Catppuccin Latte\" --color always -r :100 {}")
+            next=$(fzf --height=100% --layout=default --preview "highlight -O ansi --line-range=0-100 {}")
             printf "eval -client %s %%{ edit %s }\n" "$kak_client" "$next" |
                 kak -p "$kak_session"
         ' > /dev/null 2>&1 < /dev/null &
@@ -80,7 +80,7 @@ define-command fzf_buffer %{
         # Create a temporary file for storage
         kitty -T "kitty_tmp" -e dash -c '
             next=$(printf "%s\n" "$kak_buflist" | tr " " "\n" |
-                fzf --height=100% --layout=default --preview "highlight -O ansi {}")
+                fzf --height=100% --layout=default --preview "highlight -O ansi --line-range=0-100 {}")
             printf "eval -client %s %%{ buffer %s }\n" "$kak_client" "$next" |
                 kak -p "$kak_session"
     ' > /dev/null 2>&1 < /dev/null &
