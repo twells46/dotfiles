@@ -1,6 +1,8 @@
 {{ if eq .colors "light" }}
 colorscheme catppuccin_latte
-{{- end -}}
+{{ else -}}
+colorscheme catppuccin_mocha
+{{- end }}
 
 # Lines numbers and relative numbers
 add-highlighter global/ number-lines -relative

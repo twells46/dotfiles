@@ -24,7 +24,7 @@ evaluate-commands %sh{
     surface2='rgb:585b70'
     surface1='rgb:45475a'
     surface0='rgb:313244'
-    base='rgb:1e1e2e'
+    base='rgb:1a1a28'
     mantle='rgb:181825'
     crust='rgb:11111b'
 
