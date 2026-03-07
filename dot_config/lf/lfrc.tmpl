@@ -1,7 +1,9 @@
 set previewer ~/.config/lf/previewer3
-#set cleaner ~/.config/lf/cleaner
+{{ if eq .term_graphics "kitty" -}}
+set cleaner ~/.config/lf/cleaner
+{{ end -}}
 
-cmd fzf_jump ${{
+cmd fzf_jump {{ "${{" }}
     res="$(fd -u -t d | fzf --reverse --header="Jump to location")"
     if [ -n "$res" ]; then
         if [ -d "$res" ]; then
@@ -12,10 +14,10 @@ cmd fzf_jump ${{
         res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
         lf -remote "send $id $cmd \"$res\""
     fi
-}}
+{{ "}}" }}
 map <c-f> :fzf_jump
 
-cmd fzf_search ${{
+cmd fzf_search {{ "${{" }}
     cmd="rg --column --line-number --no-heading --color=always --smart-case"
     fzf --ansi --disabled --layout=reverse --header="Search in files" --delimiter=: \
         --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
@@ -27,10 +29,10 @@ cmd fzf_search ${{
         #--preview='bat --color=always --highlight-line={2} -- {1}'
         # Alternatively you can even use the same previewer you've configured for lf
         #--preview='~/.config/lf/cleaner; ~/.config/lf/previewer {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"'
-}}
+{{ "}}" }}
 map gs :fzf_search
 
-cmd paste-cow &{{
+cmd paste-cow {{ "${{" }}
     set -- $(cat ~/.local/share/lf/files)
     mode="$1"
     shift
@@ -72,7 +74,7 @@ cmd paste-cow &{{
             ;;
         move) lf -remote "send $id paste";;
     esac
-}}
+{{ "}}" }}
 
 # use a different command name to avoid shadowing :paste
 map p paste-cow
