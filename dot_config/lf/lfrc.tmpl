@@ -1,4 +1,4 @@
-set previewer ~/.config/lf/previewer3
+set previewer ~/.config/lf/previewer
 {{ if eq .term_graphics "kitty" -}}
 set cleaner ~/.config/lf/cleaner
 {{ end -}}
@@ -15,7 +15,7 @@ cmd fzf_jump {{ "${{" }}
         lf -remote "send $id $cmd \"$res\""
     fi
 {{ "}}" }}
-map <c-f> :fzf_jump
+map gf :fzf_jump
 
 cmd fzf_search {{ "${{" }}
     cmd="rg --column --line-number --no-heading --color=always --smart-case"
@@ -32,7 +32,7 @@ cmd fzf_search {{ "${{" }}
 {{ "}}" }}
 map gs :fzf_search
 
-cmd paste-cow {{ "${{" }}
+cmd paste-cow {{ "&{{" }}
     set -- $(cat ~/.local/share/lf/files)
     mode="$1"
     shift
@@ -78,3 +78,7 @@ cmd paste-cow {{ "${{" }}
 
 # use a different command name to avoid shadowing :paste
 map p paste-cow
+
+# Buld rename files in text editor
+cmd brename $vidir -- $PWD
+map <a-r> brename
