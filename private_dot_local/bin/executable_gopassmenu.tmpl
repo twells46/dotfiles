@@ -10,7 +10,7 @@ else
 	printf "${PW}" | xsel -ib -t 30000
 fi
 {{- else }}
-PW="$(gopass ls --flat | wofi -d -l2 -k /dev/null -p 'Password: ' | xargs -r gopass show | head -n1)"
+PW="$(gopass ls --flat | wmenu -l20 -p 'Password: ' | xargs -r gopass show | head -n1)"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
 	wtype "${PW}"

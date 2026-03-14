@@ -1,5 +1,9 @@
-#!/bin/dash
+#!/bin/sh
 
 pkill wlsunset
 
-[ "$1" -ne "0" ] && (wlsunset -t "$1" &)
+if [ "$1" -ne "0" ]; then
+	wlsunset -t "$1" &
+else
+	exit 0
+fi

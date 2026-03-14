@@ -21,9 +21,9 @@ find_cache() {
 	local CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
 	[ ! -d "${CACHE_DIR}" ] && mkdir -p "${CACHE_DIR}"
 	local FILE_LOC="$(pwd)/${file}"
-	local TMP="$(head -c 1024 "$file" | cksum -a md5)"
+	local TMP="$(head -c 1024 "$file" | cksum)"
 	#CACHE_F="${CACHE_DIR}/${TMP##* }"
-	echo "${CACHE_DIR}/${TMP##* }"
+	echo "${CACHE_DIR}/${TMP%% *}"
 }
 
 cache() {

@@ -4,13 +4,33 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+{{- if .systemd }}
 # Export env vars so systemd user services (like waybar) see them
 exec systemctl --user import-environment \
     DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 
 # Kick off the sway-session target every time sway starts/reloads
 exec_always systemctl --user start sway-session.target
-
+{{- else }}
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar swaybar_command waybar
+#bar {
+#    font Liberation Mono 12px
+#    position top
+#
+#    # When the status_command prints a new line to stdout, swaybar updates.
+#    # The default just shows the current date and time.
+#    status_command while /home/tom/.local/bin/status.sh; do sleep 2; done
+#
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+#}
+{{- end }}
 
 xwayland enable
 
@@ -281,25 +301,5 @@ default_border pixel 2
 default_floating_border pixel 2
 gaps outer 1
 gaps inner 2
-
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-#bar swaybar_command waybar
-#bar {
-#    font Liberation Mono 12px
-#    position top
-#
-#    # When the status_command prints a new line to stdout, swaybar updates.
-#    # The default just shows the current date and time.
-#    status_command while /home/tom/.local/bin/status.sh; do sleep 2; done
-#
-#    colors {
-#        statusline #ffffff
-#        background #323232
-#        inactive_workspace #32323200 #32323200 #5c5c5c
-#    }
-#}
 
 include /etc/sway/config.d/*

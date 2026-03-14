@@ -10,7 +10,7 @@ else
 	printf "${uname}" | xsel -ib -t 30000
 fi
 {{- else }}
-uname="$(gopass ls --flat | wofi -d -l2 -k /dev/null -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
+uname="$(gopass ls --flat | wmenu -l20 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
 	wtype "${uname}"

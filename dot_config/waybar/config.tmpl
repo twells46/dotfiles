@@ -6,7 +6,11 @@
     // Define modules to use
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
+{{- if .systemd }}
     "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "systemd-failed-units"],
+{{ else }}
+    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock"],
+{{- end }}
 
     // Configure modules
     "sway/window": {

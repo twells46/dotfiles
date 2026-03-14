@@ -1,7 +1,7 @@
 # _*_ conf _*_
 # Catppuccin Latte
 
-[colors]
+[colors-light]
 foreground=4c4f69
 background=eff1f5
 
@@ -36,4 +36,5 @@ search-box-match=4c4f69 ccd0da
 
 jump-labels=dce0e8 fe640b
 urls=1e66f5
+
 
