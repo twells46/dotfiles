@@ -61,9 +61,9 @@ case "$(file -Lb --mime-type "$file")" in
         [ ! -e "${CACHE_F}" ] && unzip -l "$file" > "${CACHE_F}"
         cat "${CACHE_F}"
         ;;
-    application/pdf)
+    application/pdf|application/epub+zip)
         CACHE_F="$(find_cache)"
-        [ ! -e "${CACHE_F}" ] && pdftoppm -png -singlefile "$file" > "${CACHE_F}"
+        [ ! -e "${CACHE_F}" ] && mutool draw -r 100 -F png -o "${CACHE_F}" "$file" 1
         draw "${CACHE_F}"
         ;;
     video/*|audio/*)
