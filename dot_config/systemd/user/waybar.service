@@ -1,7 +1,7 @@
 [Unit]
 Description=Waybar Panel
-PartOf=sway-session.target
-After=sway-session.target
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=simple
@@ -11,4 +11,3 @@ RestartSec=1
 
 [Install]
 WantedBy=sway-session.target
-
