@@ -8,6 +8,8 @@ while [ "$remaining" -gt 0 ]; do
     sleep 1
 done
 
+notify-send -a 'timer' 'Timer up'
+
 #mpv --really-quiet ~/media/music/Sabaton-The_Last_Stand/10.Winged_Hussars.flac
 #mpv --really-quiet ~/media/old-church-bell-6298.mp3 &
 #sleep 2
