@@ -15,7 +15,7 @@ cmd fzf_jump {{ "${{" }}
         lf -remote "send $id $cmd \"$res\""
     fi
 {{ "}}" }}
-map gf :fzf_jump
+map gd :fzf_jump
 
 cmd fzf_search {{ "${{" }}
     cmd="rg --column --line-number --no-heading --color=always --smart-case"
