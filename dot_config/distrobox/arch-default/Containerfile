@@ -1,0 +1,78 @@
+FROM archlinux:latest
+
+RUN pacman-key --init && pacman --noconfirm -Syu && pacman -Fy
+
+RUN pacman -S --noconfirm \
+	age \
+	aria2 \
+	base-devel \
+	bc \
+	chafa \
+	chezmoi \
+	dash \
+	fd \
+	ffmpegthumbnailer \
+	fish \
+	fzf \
+	git \
+	github-cli \
+	gopass \
+	gopls \
+	highlight \
+	imagemagick \
+	imv \
+	inetutils \
+	jq \
+	kakoune \
+	kakoune-lsp \
+	kguiaddons \
+	kwindowsystem \
+	less \
+	lf \
+	libnotify \
+	lsof \
+	man-db \
+	mpc \
+	mpd \
+	mpv \
+	mupdf-tools \
+	ncmpcpp \
+	ncmpcpp \
+	openssh \
+	perl-image-exiftool \
+	pigz \
+	pyright \
+	qt6-base \
+	ramalama \
+	ripgrep \
+	rsync \
+	shellcheck \
+	shfmt \
+	sudo \
+	tree \
+	unzip \
+	wget \
+	which \
+	wl-clipboard \
+	xorg-xauth \
+	zathura \
+	zathura-cb \
+	zathura-pdf-mupdf \
+	zathura-ps \
+	zip
+
+RUN useradd -m -G wheel -s /usr/bin/fish tom
+
+RUN printf '%%wheel ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/99_tom
+
+USER tom
+
+WORKDIR tom
+
+RUN git clone https://aur.archlinux.org/yay.git \
+	&& cd yay \
+	&& makepkg -sir --noconfirm \
+	&& cd .. \
+	&& rm -rf yay
+
+RUN yay -S --noconfirm crush

@@ -1,0 +1,15 @@
+[Unit]
+Description=MPD running inside Distrobox container
+After=default.target
+Wants=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/distrobox enter -n mpd -- mpd --no-daemon
+Restart=on-failure
+RestartSec=5
+KillMode=process
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
