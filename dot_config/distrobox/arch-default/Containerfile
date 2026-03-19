@@ -16,6 +16,8 @@ RUN pacman -S --noconfirm \
 	fzf \
 	git \
 	github-cli \
+	git-lfs \
+	glow \
 	gopass \
 	gopls \
 	highlight \
@@ -75,4 +77,7 @@ RUN git clone https://aur.archlinux.org/yay.git \
 	&& cd .. \
 	&& rm -rf yay
 
-RUN yay -S --noconfirm crush
+RUN yay -S --noconfirm \
+	crush \
+	openai-codex-bin
+
