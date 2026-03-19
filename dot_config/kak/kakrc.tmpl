@@ -113,7 +113,7 @@ define-command fifotest %{
 # }
 
 # Filetypes with two-space indentation
-hook global BufCreate .*\.(js|html|ts|tsx|hs)$ %{
+hook global BufCreate .*\.(js|html|ts|tsx|hs|yml)$ %{
     # Map tab key to `>` in normal mode -- inserts <indentwidth> spaces
     map global insert <tab> '<a-;><a-gt>'
     set-option buffer indentwidth 2
