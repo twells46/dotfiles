@@ -9,6 +9,5 @@ if [ -n "$res" ]; then
 	else
 		cmd="select"
 	fi
-	res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-	printf "$res"
+	printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g'
 fi
