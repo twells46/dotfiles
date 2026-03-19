@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# This doesn't actually work because scripts run in a seperate (sub?)shell
+# See the fish config for where this is actually used.
+res="$(fd -u -t d | fzf --reverse --header="Jump to location")"
+if [ -n "$res" ]; then
+	if [ -d "$res" ]; then
+		cmd="cd"
+	else
+		cmd="select"
+	fi
+	res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	printf "$res"
+fi
