@@ -1,3 +1,3 @@
 function gd
-    cd "$(print_gd)"
+    cd (print_gd)
 end
