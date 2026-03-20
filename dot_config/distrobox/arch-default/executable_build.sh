@@ -7,7 +7,7 @@ if [ "$#" -ne 1 ]; then
 	exit 1
 fi
 
-podman build -t "${1}" .
+podman build --no-cache -t "${1}" .
 
 printf "Updating distrobox.ini...\n"
 sed -i "s|^image=.*\$|image=${1}|" ./distrobox.ini

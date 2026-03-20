@@ -1,5 +1,9 @@
 FROM archlinux:latest
 
+# Remove 'NoExtract' directives that prevent installing manpages, among other things
+RUN find /etc/pacman.conf /etc/pacman.d -type f -print0 2>/dev/null \
+	| xargs -0 sed -i '/NoExtract.*usr\/share\/man/d;/NoExtract.*usr\/share\/help/d;/NoExtract.*usr\/share\/doc/d;/NoExtract.*etc\/pacman.d\/mirrorlist/d'
+
 RUN pacman-key --init && pacman --noconfirm -Syu && pacman -Fy
 
 RUN pacman -S --noconfirm \
@@ -16,6 +20,7 @@ RUN pacman -S --noconfirm \
 	fish \
 	fzf \
 	git \
+	git-filter-repo \
 	github-cli \
 	git-lfs \
 	glow \
@@ -35,6 +40,7 @@ RUN pacman -S --noconfirm \
 	libnotify \
 	lsof \
 	man-db \
+	man-pages \
 	mpc \
 	mpd \
 	mpv \
@@ -64,13 +70,15 @@ RUN pacman -S --noconfirm \
 	zathura-ps \
 	zip
 
+RUN mandb -cp
+
 RUN useradd -m -G wheel -s /usr/bin/fish tom
 
 RUN printf '%%wheel ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/99_tom
 
 USER tom
 
-WORKDIR tom
+WORKDIR /home/tom
 
 RUN git clone https://aur.archlinux.org/yay.git \
 	&& cd yay \
@@ -81,4 +89,5 @@ RUN git clone https://aur.archlinux.org/yay.git \
 RUN yay -S --noconfirm \
 	crush \
 	openai-codex-bin
+
 

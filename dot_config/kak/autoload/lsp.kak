@@ -1,5 +1,5 @@
 eval %sh{kak-lsp}
-hook global WinSetOption filetype=(haskell|rust|python|go|javascript|typescript|c|cpp) %{
+hook global WinSetOption filetype=(haskell|rust|python|go|javascript|typescript|c|cpp|markdown) %{
     lsp-enable-window
 }
 
