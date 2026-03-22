@@ -66,6 +66,8 @@ RUN pacman -S --noconfirm \
 	shfmt \
 	socat \
 	sudo \
+	task \
+	taskwarrior-tui \
 	tig \
 	tree \
 	unzip \
@@ -80,8 +82,6 @@ RUN pacman -S --noconfirm \
 	zathura-pdf-mupdf \
 	zathura-ps \
 	zip
-
-RUN mandb -cp
 
 RUN useradd -m -G wheel -s /usr/bin/fish tom
 
@@ -108,3 +108,5 @@ RUN sudo wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
 	EDITOR=kak sudo --preserve-env=EDITOR nb completions install --download
 
 RUN sudo npm install -g @andymatuschak/note-link-janitor
+
+RUN mandb -c
