@@ -1,0 +1,90 @@
+export NB_DIRECTORY_TOOL="lfcd"
+export NB_DIR="$XDG_DATA_HOME/nb"
+export NB_BOOKMARK_CONTENT_CLEANUP_TOOL="readable"
+export NB_IMAGE_TOOL="chafa"
+export NB_LIMIT="auto-5"
+
+# Sets the theme for the `bat`
+export NB_SYNTAX_THEME="Catppuccin Latte"
+
+# Markdown viewers
+# `lowdown` looks great, but it indents and places a block-quote style indent
+# line for fenced code, which make copy-paste tedious.
+#export NB_MARKDOWN_TOOL="lowdown -t html -s --term-hpadding=0"
+
+# `bat` is nice and simple, but it preserves the newlines inside paragraphs.
+#export NB_MARKDOWN_TOOL="bat -p --terminal-width -10"
+
+# `-s` selects a custom style which removes the margin.
+# TODO Add dark theme
+#export NB_MARKDOWN_TOOL="glow -w0 -s /home/tom/.config/glow/light.json"
+
+# Acme-based CSS theme
+export NB_CUSTOM_CSS='
+html {
+  font-family: sans;
+  background: #fffff0;
+  color: #000000;
+}
+h1 a,
+h1 a:hover,
+h1 a:visited,
+nav a,
+nav a:hover,
+nav a:visited,
+a.list-item,
+a.list-item:hover,
+a.list-item:visited {
+  color: #404040;
+}
+.identifier {
+  color: #335acc;
+}
+.muted {
+  color: #14141a;
+}
+pre,
+pre.sourceCode,
+code span.at,
+code span.bu,
+code span.fu,
+code {
+  color: #42455c;
+  background: #eff1f5;
+  font-family: CommitMono Nerd Font, monospace;
+}
+code span.cf,
+code span.kw {
+  color: #8839ef;
+}
+code span.dt {
+  color: #1e66f5;
+}
+code span.op {
+  color: #04a5e5;
+}
+code span.dv {
+  color: #fe640b;
+}
+code span.im {
+  color: #e64553;
+}
+code span.vs,
+code span.st {
+  color: #40a02b;
+}
+code span.sc {
+  color: #df8e1d;
+}
+#search-input {
+  background: #fffff0;
+  color: #404040;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 0.5rem 0.25rem;
+}
+input {
+  font-family: sans;
+}
+'
+

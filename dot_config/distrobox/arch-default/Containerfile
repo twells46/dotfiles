@@ -20,6 +20,7 @@ RUN pacman -S --noconfirm \
 	ffmpegthumbnailer \
 	fish \
 	fzf \
+	gcr \
 	git \
 	git-filter-repo \
 	github-cli \
@@ -50,6 +51,7 @@ RUN pacman -S --noconfirm \
 	ncmpcpp \
 	ncmpcpp \
 	nmap \
+	npm \
 	openssh \
 	pandoc \
 	perl-image-exiftool \
@@ -105,3 +107,4 @@ RUN sudo wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
 	sudo chmod +x /usr/local/bin/nb && \
 	EDITOR=kak sudo --preserve-env=EDITOR nb completions install --download
 
+RUN sudo npm install -g @andymatuschak/note-link-janitor
