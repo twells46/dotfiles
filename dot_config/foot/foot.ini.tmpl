@@ -10,7 +10,9 @@ shell=/usr/bin/fish
 #shell=/home/tom/.local/bin/xonsh
 #shell=/usr/bin/nu
 
-gamma-correct-blending=yes
+# Not implemented on Sway:
+# warn: wayland.c:2099: gamma-corrected-blending: disabling; compositor does not implement the color-management protocol
+#gamma-correct-blending=yes
 
 [cursor]
 style=beam
@@ -22,8 +24,9 @@ color-theme-toggle=Control+L
 # By default, foot attempts to check if the font selected is monospace.
 # Disabling the check may decrease startup time. See man 5 foot.ini.
 font-monospace-warn=no
+
 # With gamma-correct-blending=yes, foot will try to use 10-bit or 16-bit color
 # channels, which are significantly slower. 8-bit lowers color accuracy but
 # restores speed (input latency and throughput). See man 5 foot.ini.
-surface-bit-depth=8-bit
+#surface-bit-depth=8-bit
 
