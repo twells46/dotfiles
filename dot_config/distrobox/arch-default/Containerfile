@@ -9,6 +9,7 @@ RUN pacman-key --init && pacman --noconfirm -Syu && pacman -Fy
 RUN pacman -S --noconfirm \
 	age \
 	aria2 \
+	asciidoctor \
 	base-devel \
 	bc \
 	chafa \
@@ -38,6 +39,7 @@ RUN pacman -S --noconfirm \
 	less \
 	lf \
 	libnotify \
+	lowdown \
 	lsof \
 	man-db \
 	man-pages \
@@ -47,19 +49,26 @@ RUN pacman -S --noconfirm \
 	mupdf-tools \
 	ncmpcpp \
 	ncmpcpp \
+	nmap \
 	openssh \
+	pandoc \
 	perl-image-exiftool \
 	pigz \
 	pyright \
 	qt6-base \
 	ramalama \
 	ripgrep \
+	ripgrep-all \
 	rsync \
 	shellcheck \
 	shfmt \
+	socat \
 	sudo \
+	tig \
 	tree \
 	unzip \
+	visidata \
+	w3m\
 	wget \
 	which \
 	wl-clipboard \
@@ -88,6 +97,11 @@ RUN git clone https://aur.archlinux.org/yay.git \
 
 RUN yay -S --noconfirm \
 	crush \
-	openai-codex-bin
+	deno-readability-cli \
+	openai-codex-bin \
+	tidy-viewer
 
+RUN sudo wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
+	sudo chmod +x /usr/local/bin/nb && \
+	EDITOR=kak sudo --preserve-env=EDITOR nb completions install --download
 
