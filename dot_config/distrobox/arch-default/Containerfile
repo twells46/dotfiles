@@ -69,6 +69,7 @@ RUN pacman -S --noconfirm \
 	task \
 	taskwarrior-tui \
 	tig \
+	timew \
 	tree \
 	unzip \
 	visidata \
@@ -82,6 +83,14 @@ RUN pacman -S --noconfirm \
 	zathura-pdf-mupdf \
 	zathura-ps \
 	zip
+
+# renameutils conflicts with `/usr/bin/imv`, so manually install to `/usr/local/` instead.
+RUN pacman -Sw --noconfirm renameutils \
+	&& mkdir /tmp/renameutils \
+	&& tar -xf /var/cache/pacman/pkg/renameutils-0.12.0-7-x86_64.pkg.tar.zst -C /tmp/renameutils \
+	&& rsync -rtvl /tmp/renameutils/usr/bin/ /usr/local/bin/ \
+	&& rsync -rtvl /tmp/renameutils/usr/share/ /usr/local/share/ \
+	&& rm /usr/local/bin/imv
 
 RUN useradd -m -G wheel -s /usr/bin/fish tom
 
@@ -109,4 +118,5 @@ RUN sudo wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
 
 RUN sudo npm install -g @andymatuschak/note-link-janitor
 
-RUN mandb -c
+RUN sudo mandb -c
+
