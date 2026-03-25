@@ -1,0 +1,5 @@
+# GPG, passwords, chezmoi (dotfiles), notes
+blacklist ${HOME}/.local/share/gnupg
+blacklist ${HOME}/.local/share/password-store
+blacklist ${HOME}/.local/share/chezmoi
+blacklist ${HOME}/.local/share/nb

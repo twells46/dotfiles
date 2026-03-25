@@ -1,0 +1,5 @@
+ignore mkdir ${HOME}/.mozilla
+nowhitelist ${HOME}/.mozilla
+
+mkdir ${HOME}/.config/mozilla
+whitelist ${HOME}/.config/mozilla

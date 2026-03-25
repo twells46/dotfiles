@@ -1,0 +1,14 @@
+private-bin dbus-launch,dbus-send,librewolf,sh
+
+ignore mkdir ${HOME}/.librewolf
+nowhitelist ${HOME}/.librewolf
+
+mkdir ${HOME}/.config/librewolf
+whitelist ${HOME}/.config/librewolf
+
+# noexec ${HOME} breaks DRM binaries.
+# noexec ${RUNUSER} breaks DRM binaries when using profile-sync-daemon.
+noexec ${HOME}
+noexec ${RUNUSER}
+
+whitelist ${HOME}/dl

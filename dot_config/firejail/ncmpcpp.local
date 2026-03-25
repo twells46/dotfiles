@@ -1,0 +1,19 @@
+ignore mkdir ${HOME}/.lyrics
+nowhitelist ${HOME}/.lyrics
+nowhitelist /var/lib/mpd
+
+mkdir ${HOME}/.config/ncmpcpp
+mkdir ${HOME}/.local/share/lyrics/
+whitelist ${HOME}/.config/ncmpcpp
+whitelist ${HOME}/.local/share/lyrics/
+
+
+noblacklist ${RUNUSER}
+whitelist ${RUNUSER}/mpd.sock
+
+# I don't use any internet features, so by switching the mpd server to a unix
+# socket, I can disable internet access.
+net none
+ignore net
+ignore protocol unix,inet,inet6
+protocol unix
