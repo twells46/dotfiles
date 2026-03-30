@@ -1,15 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env dash
 
-{{ if eq .term_graphics "kitty" -}}
 draw() {
-	kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
-	exit 1
+	if [ "${TERM}" = "foot" ]; then
+		chafa -f sixel -s "${w}x${h}" --animate off --polite on -t 1 --bg black "$1"
+	elif [ "${TERM}" = "xterm-kitty" ]; then
+		kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
+		exit 1
+	fi
 }
-{{- else }}
-draw() {
-	chafa -f sixel -s "${w}x${h}" --animate off --polite on -t 1 --bg black "$1"
-}
-{{- end }}
 
 file="$1"
 w="$2"
