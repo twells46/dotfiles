@@ -7,9 +7,9 @@
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
 {{- if .systemd }}
-    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "systemd-failed-units"],
+    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "privacy", "systemd-failed-units"],
 {{ else }}
-    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock"],
+    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "privacy"],
 {{- end }}
 
     // Configure modules
