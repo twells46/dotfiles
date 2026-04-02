@@ -1,0 +1,11 @@
+cursor-appimage
+herbe
+jay
+librewolf-bin
+piper-tts-bin
+piper-voices-en-us
+tiramisu-git
+vtsls
+yay
+yay-debug
+
