@@ -18,8 +18,9 @@ y="$5"
 find_cache() {
 	local CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
 	[ ! -d "${CACHE_DIR}" ] && mkdir -p "${CACHE_DIR}"
-	local FILE_LOC="$(pwd)/${file}"
-	local TMP="$(head -c 1024 "$file" | cksum)"
+	#local FILE_LOC="$(pwd)/${file}"
+	local TMP
+	TMP="$(head -c 1024 "$file" | cksum)"
 	#CACHE_F="${CACHE_DIR}/${TMP##* }"
 	echo "${CACHE_DIR}/${TMP%% *}"
 }
@@ -48,7 +49,7 @@ case "$(file -Lb --mime-type "$file")" in
             	;;
         esac
         ;;
-    application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib|application/x-tar)
+    application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib|application/x-tar|application/x-lzip)
         CACHE_F="$(find_cache)"
         [ ! -e "${CACHE_F}" ] && tar -tf "$file" > "${CACHE_F}"
         echo "Contents:"

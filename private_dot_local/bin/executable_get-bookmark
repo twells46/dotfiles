@@ -1,7 +1,17 @@
-#!/bin/sh
+#!/usr/bin/env dash
 
-bm_prefix="$XDG_DATA_HOME/bookmarks"
+if [ -n $WAYLAND_DISPLAY ]; then
+	dmenu="wmenu"
+elif [ -n $DISPLAY ]; then
+	dmenu="dmenu"
+else
+	echo "Error: No Wayland or X11 display detected" >&2
+	exit 1
+fi
+
+bm_prefix="${XDG_DATA_HOME}/bookmarks"
 #bm_line="$(cat "$bm_prefix"/* | grep -v '/^#/d' | dmenu -l 20)"
 #bm_line="$(sed -e 'x/ .*$/d' "$bm_prefix"/* | dmenu -l 20)"
-bm_line="$(cat "$bm_prefix"/* | dmenu -l 20)"
-echo "${bm_line%% *}"
+line="$(cat "${bm_prefix}"/* | $dmenu -l 20)"
+echo "${line%% *}"
+
