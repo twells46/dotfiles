@@ -1,0 +1,10 @@
+#!/usr/bin/env dash
+set -eu
+
+src="/backup"
+dest_root="/mnt/backups"
+rsync -aHAX --numeric-ids --delete \
+	-v --info=progress2 \
+	"$src/" "$dest_root/"
+
+echo "Cloned $src to $dest_root"
