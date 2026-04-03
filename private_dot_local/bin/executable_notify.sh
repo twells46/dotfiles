@@ -1,8 +1,8 @@
 #!/usr/bin/env dash
 
-if [ -n $WAYLAND_DISPLAY ]; then
+if [ -n "${WAYLAND_DISPLAY}" ]; then
 	herbe="wayherb"
-elif [ -n $DISPLAY ]; then
+elif [ -n "${DISPLAY}" ]; then
 	herbe="herbe"
 else
 	printf "Error: No display server found\n" >&2
@@ -18,3 +18,4 @@ while read -r line; do
 	$herbe "${src} | ${sum}: ${bod}"
 	# "$(printf '%s' "${line}" | awk -F '\t' '{printf "%s | %s: %s", $1, $2, $3}')"
 done
+
