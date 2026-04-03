@@ -179,6 +179,12 @@ bindsym $mod+Shift+o exec passmenu -u
 bindsym $mod+grave exec pkill -USR1 swayidle
 bindsym $mod+Shift+grave exec pkill -USR2 waybar
 
+# Bookmarks
+bindsym $mod+m exec get-bookmark | wtype -
+bindsym $mod+Shift+m exec wl-paste | save-bookmark
+bindsym $mod+n exec get-bookmark | linkmenu
+bindsym $mod+Shift+n exec wl-paste | linkmenu
+
 #
 # Moving around:
 #
