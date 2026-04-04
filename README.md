@@ -43,6 +43,10 @@ Most of the directories are pretty self-explanatory -- just look up the program 
 This sets the variables for `dash` (user shell), which are inherited by `fish`, which I call explicitly when opening a terminal window (i.e. `st /usr/bin/fish`).
 - **scripts**: Some scripts that I have written and used at various points in time.
 Many of them are only really useful for quick reference, but there are a few actually useful ones.
+- **userjs**: My  `user.js` files for Firefox and friends.
+`worstfox` is a combination of [Arkenfox](https://github.com/arkenfox/user.js/) and [Betterfox](https://github.com/yokoffing/BetterFox).
+`betterfox` is just Betterfox with a couple small tweaks.
+I symlink these into two profiles: `worstfox` for secure browsing and `betterfox` for when the secure profile breaks.
 
 ## Chezmoi config
 
