@@ -50,9 +50,6 @@ I set a few custom variables in my chezmoi config to reconcile differences betwe
 
 - `gpg_key_git`: GPG key to use for git commit signing.
 - `git_email`: Email address to use for git.
-- `wm`: `wayland` or `x11`, mostly for helpers like `wl-clipboard` vs. `xsel`.
 - `colors`: `light` or `dark`, applies theming to a few programs.
 - `dp_scale`: Display scale for sway.
-- `fish_direct`: `true` or `false`. Should `fish` set environment variables directly?
-- `term_graphics`: `kitty` or `sixel`. Determines protocol to use for `lf` image previews.
 - `systemd`: `true` or `false`. Is `systemd` present on the system?

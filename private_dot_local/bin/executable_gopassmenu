@@ -1,6 +1,7 @@
 #!/bin/sh
 
-{{- if eq .wm "x11" }}
+echo "FIXME" && exit 1
+
 # Home laptop
 PW="$(gopass ls --flat | dmenu -l 15 -p 'Password: ' | xargs -r gopass show | head -n1)"
 # [t]ype or copy
@@ -9,7 +10,6 @@ if [ "$1" = "-t" ] ; then
 else
 	printf "${PW}" | xsel -ib -t 30000
 fi
-{{- else }}
 PW="$(gopass ls --flat | wmenu -l20 -p 'Password: ' | xargs -r gopass show | head -n1)"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
@@ -18,4 +18,3 @@ else
 	wl-copy "${PW}"
 	( sleep 30 && wl-copy -c ) &
 fi
-{{- end }}

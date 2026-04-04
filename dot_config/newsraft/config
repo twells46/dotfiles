@@ -1,8 +1,4 @@
-{{- if eq .wm "x11" -}}
-copy-to-clipboard-command "xsel -ib"
-{{- else }}
-copy-to-clipboard-command "wl-copy"
-{{- end }}
+copy-to-clipboard-command "clipboard_get.sh"
 
 bind a mark-read
 bind u mark-unread

@@ -1,9 +1,8 @@
-{{- if eq .chezmoi.hostname "Aragorn" }}
-# Home laptop
+{{- if eq .chezmoi.hostname "percival" }}
+# Force vaapi+opengl
 hwdec=vaapi
 gpu-api=opengl
 {{- else if eq .chezmoi.hostname "aurora" }}
-# Work laptop
 hwdec=vaapi
 {{- else }}
 hwdec=auto

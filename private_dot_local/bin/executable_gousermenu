@@ -1,7 +1,7 @@
 #!/bin/sh
 
-{{- if eq .wm "x11" }}
-# Home laptop
+echo "FIXME" && exit 1
+
 uname="$(gopass ls --flat | dmenu -l 15 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
@@ -9,7 +9,6 @@ if [ "$1" = "-t" ] ; then
 else
 	printf "${uname}" | xsel -ib -t 30000
 fi
-{{- else }}
 uname="$(gopass ls --flat | wmenu -l20 -p 'Username: ' | xargs -r gopass show | sed -n '2p')"
 # [t]ype or copy
 if [ "$1" = "-t" ] ; then
@@ -18,4 +17,3 @@ else
 	wl-copy "${uname}"
 	( sleep 30 && wl-copy -c ) &
 fi
-{{- end }}

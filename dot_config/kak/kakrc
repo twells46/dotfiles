@@ -18,13 +18,8 @@ add-highlighter global/ regex \h+$ 0:Error
 set-option global scrolloff 5,5
 
 # System clipboard bindings
-{{- if eq .wm "x11" }}
-map global user y "<a-|>xsel -ib<ret>" -docstring "[Y]ank to system clipboard"
-map global user p "|xsel -ob<ret>" -docstring "[P]ut from system clipboard"
-{{- else }}
-map global user y "<a-|>wl-copy<ret>" -docstring "[Y]ank to system clipboard"
-map global user p "|wl-paste<ret>" -docstring "[P]ut from system clipboard"
-{{- end }}
+map global user y "<a-|>clipboard_get.sh<ret>" -docstring "[Y]ank to system clipboard"
+map global user p "|clipboard_put.sh<ret>" -docstring "[P]ut from system clipboard"
 
 ### A note on the /dev/null black magic ###
 # %sh is synchronous by design. It will wait for:
