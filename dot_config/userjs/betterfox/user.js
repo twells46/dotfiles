@@ -235,4 +235,4 @@ user_pref("browser.urlbar.suggest.topsites", false);
  * END: BETTERFOX                                                           *
 ****************************************************************************/
 
-
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);

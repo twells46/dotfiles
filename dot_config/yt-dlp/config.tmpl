@@ -16,6 +16,7 @@
 -S "+vcodec:avc"
 --remux-video "mkv"
 -f "bv*[height<=1080]+ba/b[height<=1080]"
+--js-runtimes node
 {{- else }}
 -f "bv+ba/b"
 {{- end }}

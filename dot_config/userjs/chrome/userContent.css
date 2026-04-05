@@ -1,0 +1,7 @@
+/* Target specific sites */
+@-moz-document domain("royalroad.com") {
+  body {
+    font-family: sans;
+    margin: 10px 2%;
+  }
+}

@@ -264,3 +264,4 @@ user_pref("browser.eme.ui.enabled", false);
  * END: BETTERFOX                                                           *
 ****************************************************************************/
 
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
