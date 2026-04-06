@@ -1,9 +1,8 @@
-copy-to-clipboard-command "clipboard_get.sh"
-
 bind a mark-read
 bind u mark-unread
 bind U mark-unread-all
-bind d exec foot yt-dlp '%l'
-bind v exec foot mpv '%l'
+# If $TERM isn't set you're going to have a bad time
+bind d exec $TERM yt-dlp '%l'
+bind v exec $TERM mpv '%l'
 bind w exec curl -L --compressed -o "/home/tom/media/inbox/daily.mp3" "%l"
-#bind a exec foot mpv --no-video '%l'
+#bind a exec $TERM mpv --no-video '%l'

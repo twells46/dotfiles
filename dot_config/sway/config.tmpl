@@ -183,8 +183,8 @@ bindsym $mod+Shift+grave exec pkill -USR2 waybar
 # Bookmarks
 bindsym $mod+b exec get-bookmark | wtype -
 bindsym $mod+Shift+b exec get-bookmark | wl-copy
-bindsym $mod+n wl-paste | save-bookmark
-bindsym $mod+m wl-paste | linkmenu
+bindsym $mod+n exec wl-paste | save-bookmark
+bindsym $mod+m exec wl-paste | linkmenu
 
 #
 # Moving around:

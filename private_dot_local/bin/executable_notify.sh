@@ -15,7 +15,7 @@ while read -r line; do
 	src="${head%	*}"
 	sum="${head#*	}"
 	bod="${line##*	}"
-	$herbe "${src} | ${sum}: ${bod}"
+	$herbe "${src}から" "${sum}" "${bod}"
 	# "$(printf '%s' "${line}" | awk -F '\t' '{printf "%s | %s: %s", $1, $2, $3}')"
 done
 
