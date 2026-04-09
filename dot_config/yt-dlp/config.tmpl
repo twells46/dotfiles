@@ -12,7 +12,7 @@
 --max-sleep-interval 15
 --sleep-subtitles 4
 
-{{- if eq .chezmoi.hostname "percival" }}
+{{- if eq .chezmoi.hostname "mr2" }}
 -S "+vcodec:avc"
 --remux-video "mkv"
 -f "bv*[height<=1080]+ba/b[height<=1080]"
