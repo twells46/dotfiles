@@ -5,7 +5,7 @@ librewolf-bin
 piper-tts-bin
 piper-voices-en-us
 tiramisu-git
+tomb
 vtsls
 yay
 yay-debug
-
