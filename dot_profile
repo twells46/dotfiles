@@ -14,7 +14,7 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export FZF_DEFAULT_OPTS="--reverse --height=50%"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export NBRC_PATH="$XDG_CONFIG_HOME/nb/nbrc"
-. "${HOME}/.config/nnn/nnnconf"
+. "${XDG_CONFIG_HOME}/nnn/nnnconf"
 
 # Rust
 export CARGO_HOME="$XDG_OPT_DIR/rust/cargo"

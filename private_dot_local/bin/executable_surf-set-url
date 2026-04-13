@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xprop -id "${1}" -f '_SURF_GO' 8u -set '_SURF_GO' "${2}"

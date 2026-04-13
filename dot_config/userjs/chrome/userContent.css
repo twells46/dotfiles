@@ -5,3 +5,28 @@
     margin: 10px 2%;
   }
 }
+@-moz-document domain("soafp.com") {
+  html {
+    font-family: sans;
+    color: black;
+    background-color: #ffffea;
+  }
+  body {
+    font-family: sans;
+    color: black;
+    background-color: #ffffea;
+  }
+  p {
+    font-family: sans;
+    color: black;
+  }
+  a {
+    font-family: sans;
+    color: blue;
+  }
+  * {
+    font-family: sans;
+    color: black;
+    background-color: #ffffea;
+  }
+}
