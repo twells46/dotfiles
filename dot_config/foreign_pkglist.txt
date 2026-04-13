@@ -1,4 +1,3 @@
-cursor-appimage
 herbe
 jay
 librewolf-bin

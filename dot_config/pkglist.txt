@@ -5,6 +5,7 @@ asciidoctor
 base
 base-devel
 bash-language-server
+bat
 bc
 blender
 bluetui
@@ -22,7 +23,6 @@ chromium
 cider
 clang
 cmake
-code
 compsize
 cpupower
 crun
@@ -65,6 +65,7 @@ intel-gpu-tools
 intel-media-driver
 intel-speed-select
 intel-ucode
+inxi
 jq
 kakoune
 kakoune-lsp
@@ -96,6 +97,7 @@ nmap
 nnn
 notmuch
 noto-fonts-cjk
+npm
 nvidia-container-toolkit
 nvidia-open
 openai-codex
@@ -112,6 +114,7 @@ pipewire-alsa
 pipewire-pulse
 plocate
 podman
+pypy3
 pyright
 qemu-user-static
 qemu-user-static-binfmt
@@ -159,6 +162,7 @@ tlp
 tlp-pd
 tlp-rdw
 tmon
+tmux
 transmission-cli
 turbostat
 typst
