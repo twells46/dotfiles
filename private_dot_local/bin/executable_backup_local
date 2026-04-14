@@ -2,7 +2,7 @@
 set -eu
 
 src="/home/tom/"
-dest_root="/backup/home"
+dest_root="/backup/"
 exclude_file="${XDG_CONFIG_HOME}/backup/home.exclude"
 
 timestamp="$(date +%Y-%m-%dT%H%M%S)"

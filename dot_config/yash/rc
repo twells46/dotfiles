@@ -6,7 +6,8 @@
 
 # Firstly, load the common customization script.
 # If you don't like settings applied in this script, remove this line.
-. --autoload --no-alias initialization/common
+#. --autoload --no-alias initialization/common
+. --no-alias /home/tom/.config/yash/common.yash
 
 # These are additional aliases that are not defined in the common script.
 # Uncomment to enable them.
@@ -37,6 +38,19 @@
 
 # And add your own customization below.
 
+alias ls='ls -h --color=auto --group-directories-first'
+alias tree='tree -C'
+alias cp='cp -iv'
+alias rm='rm -Iv'
+alias mv='mv -iv'
+alias mkdir='mkdir -pv'
+alias less='less -R'
+alias zathura='zathura --fork'
+alias lf='lfcd'
+alias info='info --vi-keys'
 
+gd() {
+    cd "$(fd -t d -u | fzf --algo=v1${1+ -q $1})" || return 0
+}
 
 # vim: set et sw=2 sts=2 tw=78 ft=sh:
