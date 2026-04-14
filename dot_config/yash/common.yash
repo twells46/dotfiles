@@ -2,9 +2,11 @@
 # This file is in the public domain.
 
 # enable bash-like extended expansion
+# a{1,2,3}b -> a1b a2b a3b
 set --brace-expand
 
 # enable recursive pathname expansion
+# **, .**, etc.
 set --extended-glob
 
 # prevent redirections from overwriting existing files
@@ -55,9 +57,9 @@ if command --identify --builtin-command bindkey >/dev/null; then
   set --le-predict
 
   # most users are more familiar with emacs mode than vi mode
-  if [ -o vi ]; then
-    set --emacs
-  fi
+  #if [ -o vi ]; then
+  #  set --emacs
+  #fi
 
   # some useful key bindings
   bindkey --emacs '\^N' beginning-search-forward
@@ -71,8 +73,8 @@ if command --identify --builtin-command bindkey >/dev/null; then
   bindkey --vi-insert '\^B' backward-char
   bindkey --vi-insert '\^D' eof-or-delete
   bindkey --vi-insert '\#'  eof-or-delete
-  bindkey --vi-insert '\^E' end-of-line
-  bindkey --vi-insert '\^F' forward-char
+  bindkey --vi-insert '\^F' end-of-line
+  bindkey --vi-insert '\^E' forward-char
   bindkey --vi-insert '\^K' forward-kill-line
   bindkey --vi-insert '\^N' beginning-search-forward
   bindkey --vi-insert '\^O' clear-candidates
@@ -101,8 +103,8 @@ mv() if [ -t 0 ]; then command mv -i "$@"; else command mv "$@"; fi
 rm() if [ -t 0 ]; then command rm -i "$@"; else command rm "$@"; fi
 
 # normally yash is more POSIX-compliant than /bin/sh :-)
-sh() { yash --posix "$@"; }
-yash() { command yash "$@"; }
+#sh() { yash --posix "$@"; }
+#yash() { command yash "$@"; }
 # By re-defining 'yash' using the 'command' built-in, the 'jobs' built-in
 # prints a command name that exposes the arguments like
 # 'yash --posix -n foo.sh' rather than a command name that hides the
@@ -115,7 +117,8 @@ case $- in (*m*)
 esac
 
 # if the terminal supports color...
-if [ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]; then
+if [ "${COLORTERM-}" = "truecolor" ] || [ "${COLORTERM-}" = "24bit" ] || \
+  [ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]; then
 
   # make command output colorful
   if ls --color=auto -d / >/dev/null 2>&1; then
@@ -131,14 +134,14 @@ if [ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]; then
 fi
 
 # if vim is available...
-if command --identify vim >/dev/null 2>&1; then
-
-  # prefer vim over vi
-  vi() { vim "$@"; }
-  view() { vim -R "$@"; }
-  vim() { command vim "$@"; } # Re-definition hack. See above.
-
-fi
+#if command --identify vim >/dev/null 2>&1; then
+#
+#  # prefer vim over vi
+#  vi() { vim "$@"; }
+#  view() { vim -R "$@"; }
+#  vim() { command vim "$@"; } # Re-definition hack. See above.
+#
+#fi
 
 # avoid removing existing crontab by accident
 crontab()
@@ -163,12 +166,15 @@ fi
 # an alias that opens a file
 if command --identify xdg-open >/dev/null 2>&1; then
   alias o='xdg-open'
-elif command --identify cmd.exe wslpath >/dev/null 2>&1; then
+elif command --identify rundll32.exe wslpath >/dev/null 2>&1; then
   alias o='open'
   open() (
-    target="$(wslpath -w "$1")"
-    cd /mnt/c # suppress UNC path warning
-    cmd.exe /c start "$target"
+    if [ -e "$1" ]; then
+      target="$(wslpath -w "$1")"
+    else
+      target="$1"
+    fi
+    exec rundll32.exe url.dll,FileProtocolHandler "$target"
   )
 elif command --identify cygstart >/dev/null 2>&1; then
   alias o='cygstart'
@@ -177,7 +183,7 @@ elif [ "$(uname)" = Darwin ] 2>/dev/null; then
 fi
 
 # define some basic variables if missing
-: ${PAGER:=less} ${EDITOR:=vi} ${FCEDIT:=$EDITOR}
+: ${PAGER:=less} ${EDITOR:=vi} ${FCEDIT:=${VISUAL:=$EDITOR}}
 : ${LOGNAME:=$(logname)} ${HOSTNAME:=$(uname -n)}
 
 # disable confusing treatment of arguments in the echo command
@@ -189,7 +195,7 @@ if ! [ "${HISTFILE-}" ]; then
     HISTFILE=${XDG_STATE_HOME:-~/.local/state}/yash/history
 
     # handle old default history path
-    if [ -f ~/.yash_history ]; then
+    if [ -f ~/.yash_history ] && ! [ ~/.yash_history -ef "$HISTFILE" ]; then
         printf 'Note: The default history file location has been changed to "%s".\n' "$HISTFILE" >&2
         HISTFILE=~/.yash_history
         printf 'Please consider moving the existing file from the current location "%s".\n' "$HISTFILE" >&2
@@ -236,13 +242,17 @@ fi
 # The main prompt ($YASH_PS1) contains the username, hostname, working
 # directory, last exit status (only if non-zero), and $SHLVL (only if
 # non-one).
+#YASH_PS1=$_uc'${LOGNAME}'$_hc'@${HOSTNAME%%.*}\fd. '\
+#'${${${PWD:/~/\~}##*/}:-$PWD} ${{?:/0/}:+\\fr.$?\\fd. }${{SHLVL-0}:/1}\$ '
 YASH_PS1=$_uc'${LOGNAME}'$_hc'@${HOSTNAME%%.*}\fd. '\
-'${${${PWD:/~/\~}##*/}:-$PWD} ${{?:/0/}:+\\fr.$?\\fd. }${{SHLVL-0}:/1}\$ '
+'${${PWD/#\/home\/tom/\~}:-$PWD} ${{?:/0/}:+\\fr.$?\\fd. }${{SHLVL-0}:/1}\$ '
 YASH_PS1R='\fc.${_vcs_info}'
-YASH_PS1S='\fo.'
+YASH_PS1S='\fd.'
+YASH_PS1P='\fw.'
 YASH_PS2=$_2c'> '
 #YASH_PS2R=
 YASH_PS2S=$YASH_PS1S
+YASH_PS2P=$YASH_PS1P
 YASH_PS4='\fm.+ '
 YASH_PS4S='\fmo.'
 unset _hc _uc _2c
