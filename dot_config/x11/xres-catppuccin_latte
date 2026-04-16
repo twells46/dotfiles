@@ -1,0 +1,23 @@
+st.color0: #5C5F77
+st.color1: #D20F39
+st.color2: #40A02B
+st.color3: #DF8E1D
+st.color4: #1E66F5
+st.color5: #EA76CB
+st.color6: #179299
+st.color7: #ACB0BE
+! 8 bright colors
+st.color8: #6C6F85
+st.color9: #D20F39
+st.color10: #40A02B
+st.color11: #DF8E1D
+st.color12: #1E66F5
+st.color13: #EA76CB
+st.color14: #179299
+st.color15: #BCC0CC
+
+st.foreground: #4C4F69
+st.background: #EFF1F5
+st.cursorColor: #DC8A78
+
+st.font: CommitMono Nerd Font:pixelsize=11:antialias=true:autohint=true

@@ -1,6 +1,0 @@
-remaps
-shst &
-notify.sh &
-mpd
-exec dwm
-#exec dbus-run-session dwm

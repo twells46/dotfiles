@@ -16,6 +16,8 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export NBRC_PATH="$XDG_CONFIG_HOME/nb/nbrc"
 . "${XDG_CONFIG_HOME}/nnn/nnnconf"
 
+export CFLAGS="-O2 -march=native"
+
 # Rust
 export CARGO_HOME="$XDG_OPT_DIR/rust/cargo"
 export RUSTUP_HOME="$XDG_OPT_DIR/rust/rustup"
