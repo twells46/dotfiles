@@ -47,10 +47,36 @@ alias mkdir='mkdir -pv'
 alias less='less -R'
 alias zathura='zathura --fork'
 alias lf='lfcd'
-alias info='info --vi-keys'
+alias dfm='cd "$(command dfm)"'
 
 gd() {
-    cd "$(fd -t d -u | fzf --algo=v1${1+ -q $1})" || return 0
+    cd "$(fd -t d -u | fzf --algo=v1${1+ -q $1})"
 }
+
+n() {
+	# Block nesting nnn in its own shubshells
+	if [ "${NNNLVL+x}" = "x" ] && ["${NNNLVL}" -ge 1 ]; then
+    		 printf "nnn is already running\n"
+    		 return
+	fi
+
+	# The default is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+	# If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
+	# see. To cd on quit only on ^G, remove the "export" from both lines below,
+	# without changing the paths.
+	if [ -n "${XDG_RUNTIME_DIR}" ]; then
+    		export NNN_TMPFILE="${XDG_RUNTIME_DIR}/nnn_lastd"
+	else
+    		export NNN_TMPFILE="${HOME}/.config/nnn/.lastd"
+	fi
+
+	nnn -d "$@"
+	if [ -e "${NNN_TMPFILE}" ]; then
+        	. "${NNN_TMPFILE}"
+        	# Ignore alias defined above
+        	command rm -- "${NNN_TMPFILE}"
+    	fi
+}
+
 
 # vim: set et sw=2 sts=2 tw=78 ft=sh:

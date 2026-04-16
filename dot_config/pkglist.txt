@@ -1,6 +1,7 @@
 age
 aria2
 arp-scan
+asciidoc
 asciidoctor
 base
 base-devel
@@ -23,6 +24,7 @@ chromium
 cider
 clang
 cmake
+code
 compsize
 cpupower
 crun
@@ -31,6 +33,7 @@ cuda
 dash
 dhcpcd
 docker
+docker-buildx
 docker-compose
 dosfstools
 dunst
@@ -47,6 +50,7 @@ fuse2
 fzf
 gcr
 git
+git-delta
 git-filter-repo
 github-cli
 git-lfs
@@ -56,6 +60,7 @@ gopls
 grim
 helix
 highlight
+hugo
 hunspell-en_us
 hyperv
 imagemagick
@@ -70,6 +75,9 @@ jq
 kakoune
 kakoune-lsp
 kcpuid
+kicad
+kicad-library
+kicad-library-3d
 kitty
 kwallet5
 less
@@ -90,6 +98,7 @@ mpc
 mpd
 mpv
 mupdf-tools
+musl
 ncmpcpp
 networkmanager
 niri
