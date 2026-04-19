@@ -3,11 +3,11 @@
 # This file runs when a DM logs you into a graphical session.
 # If you use startx/xinit like a Chad, this file will also be sourced.
 
-toggle_theme & thmpid=$!
+#toggle_theme & thmpid=$!
 
 remaps
 shst &
 notify.sh &
 mpd
 
-[ -n "$thmpid" ] && wait "$thmpid"
+#[ -n "$thmpid" ] && wait "$thmpid"
