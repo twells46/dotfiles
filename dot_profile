@@ -21,7 +21,8 @@ export CFLAGS="-O2 -march=native"
 # Rust
 export CARGO_HOME="$XDG_OPT_DIR/rust/cargo"
 export RUSTUP_HOME="$XDG_OPT_DIR/rust/rustup"
-[ -f "/home/tom/.local/opt/rust/cargo/env" ] && . "/home/tom/.local/opt/rust/cargo/env"
+CARGO_ENV_FILE="/home/tom/.local/opt/rust/cargo/env"
+[ -f "${CARGO_ENV_FILE}" ] && . "${CARGO_ENV_FILE}"
 
 # Run Sway with Intel GPU (card1 on dual-GPU laptop)
 [ -c '/dev/dri/card1' ] && export WLR_DRM_DEVICES='/dev/dri/card1'

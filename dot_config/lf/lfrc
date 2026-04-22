@@ -83,3 +83,14 @@ map <a-r> brename
 map G
 map ge bottom
 
+cmd qmv ${{
+    qmv .
+}}
+
+map R
+map R qmv
+
+map s
+map s $yash
+
+map x :delete

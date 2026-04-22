@@ -50,12 +50,12 @@ alias lf='lfcd'
 alias dfm='cd "$(command dfm)"'
 
 gd() {
-    cd "$(fd -t d -u | fzf --algo=v1${1+ -q $1})"
+    cd "$(fd -t d -u | fzf --algo=v1${1+ -q $1})" || exit 0
 }
 
 n() {
 	# Block nesting nnn in its own shubshells
-	if [ "${NNNLVL+x}" = "x" ] && ["${NNNLVL}" -ge 1 ]; then
+	if [ "${NNNLVL+x}" = "x" ] && [ "${NNNLVL}" -ge 1 ]; then
     		 printf "nnn is already running\n"
     		 return
 	fi
@@ -78,5 +78,8 @@ n() {
     	fi
 }
 
+lf() {
+	cd "$(command lf -print-last-dir "$@")" || exit 0
+}
 
 # vim: set et sw=2 sts=2 tw=78 ft=sh:
