@@ -91,6 +91,6 @@ map R
 map R qmv
 
 map s
-map s $yash
+map s $fish
 
 map x :delete

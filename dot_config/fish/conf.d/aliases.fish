@@ -10,4 +10,3 @@ abbr -a zathura zathura --fork
 abbr -a lf lfcd
 abbr -a info info --vi-keys
 abbr -a xprov --set-cursor xbps-query -Rs --property provides 'cmd:%'
-abbr -a tlps "sudo tlp-stat | grep -A5 'TLP Status'"

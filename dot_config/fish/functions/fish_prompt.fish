@@ -6,5 +6,5 @@ function fish_prompt
         set stat (set_color red)" [$last_status] "(set_color normal)
     end
 
-    string join '' -- (set_color green) (prompt_pwd -D 50) (set_color normal) $stat '> '
+    string join '' -- (set_color green) (prompt_pwd -D 50) (set_color normal) $stat " $(test $SHLVL -gt 1; and echo $SHLVL; or echo "")" '$ '
 end
