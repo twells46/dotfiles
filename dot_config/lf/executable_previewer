@@ -29,6 +29,8 @@ cache() {
     exec "$@" "$file" > "${CACHE_F}"
 }
 
+file -b "${file}"
+
 case "$(file -Lb --mime-type "$file")" in
     image/*)
         draw "${file}"

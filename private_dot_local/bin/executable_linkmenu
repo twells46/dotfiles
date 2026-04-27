@@ -49,7 +49,7 @@ case $tool in
 	;;
 *surf-incognito)
 	notify-send -t 2000 "Opening in surf:" "$link"
-	surf-incognito -s "$link"
+	surf -p -s "$link"
 	;;
 *firefox)
 	notify-send -t 2500 "Opening in Firefox:" "$link"
