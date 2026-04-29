@@ -10,14 +10,15 @@ export NB_SYNTAX_THEME="Catppuccin Latte"
 # Markdown viewers
 # `lowdown` looks great, but it indents and places a block-quote style indent
 # line for fenced code, which make copy-paste tedious.
-#export NB_MARKDOWN_TOOL="lowdown -t html -s --term-hpadding=0"
+#export NB_MARKDOWN_TOOL="lowdown -t term -s --term-hpadding=0"
 
 # `bat` is nice and simple, but it preserves the newlines inside paragraphs.
-#export NB_MARKDOWN_TOOL="bat -p --terminal-width -10"
+export NB_MARKDOWN_TOOL="bat -p --terminal-width -10"
 
 # `-s` selects a custom style which removes the margin.
 # TODO Add dark theme
 #export NB_MARKDOWN_TOOL="glow -w0 -s /home/tom/.config/glow/light.json"
+#export NB_MARKDOWN_TOOL="glow -w0"
 
 # Acme-based CSS theme
 export NB_CUSTOM_CSS='
@@ -88,3 +89,4 @@ input {
 }
 '
 
+export NB_AUTO_SYNC="${NB_AUTO_SYNC:-0}" # Set by `nb` • Tue Apr 28 05:30:27 PM CDT 2026
