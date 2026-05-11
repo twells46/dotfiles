@@ -11,9 +11,12 @@ RUN pacman -S --noconfirm \
 	aria2 \
 	asciidoctor \
 	base-devel \
+	bash-language-server \
 	bc \
+	blender \
 	chafa \
 	chezmoi \
+	clang \
 	cmake \
 	dash \
 	fd \
@@ -26,11 +29,12 @@ RUN pacman -S --noconfirm \
 	github-cli \
 	git-lfs \
 	glow \
-	gopass \
+	go \
 	gopls \
+	graphicsmagick \
+	haskell-language-server \
 	highlight \
 	imagemagick \
-	imv \
 	inetutils \
 	jq \
 	kakoune \
@@ -42,8 +46,10 @@ RUN pacman -S --noconfirm \
 	libnotify \
 	lowdown \
 	lsof \
+	lua-language-server \
 	man-db \
 	man-pages \
+	marksman \
 	mpc \
 	mpd \
 	mpv \
@@ -52,27 +58,41 @@ RUN pacman -S --noconfirm \
 	ncmpcpp \
 	nmap \
 	npm \
+	ols \
+	openai-codex \
 	openssh \
 	pandoc \
+	parallel \
+	pass \
+	pass-otp \
 	perl-image-exiftool \
 	pigz \
 	pyright \
 	qt6-base \
+	r \
 	ramalama \
+	renameutils \
 	ripgrep \
 	ripgrep-all \
 	rsync \
+	rust-analyzer \
+	rustup \
 	shellcheck \
 	shfmt \
 	socat \
 	sudo \
 	task \
 	taskwarrior-tui \
+	texlab \
 	tig \
 	timew \
 	tree \
 	unzip \
+	uv \
 	visidata \
+	vscode-css-languageserver \
+	vscode-html-languageserver \
+	vscode-json-languageserver \
 	w3m\
 	wget \
 	which \
@@ -83,22 +103,56 @@ RUN pacman -S --noconfirm \
 	zathura-pdf-mupdf \
 	zathura-ps \
 	zip
+	zls \
 
-# renameutils conflicts with `/usr/bin/imv`, so manually install to `/usr/local/` instead.
-RUN pacman -Sw --noconfirm renameutils \
-	&& mkdir /tmp/renameutils \
-	&& tar -xf /var/cache/pacman/pkg/renameutils-0.12.0-7-x86_64.pkg.tar.zst -C /tmp/renameutils \
-	&& rsync -rtvl /tmp/renameutils/usr/bin/ /usr/local/bin/ \
-	&& rsync -rtvl /tmp/renameutils/usr/share/ /usr/local/share/ \
-	&& rm /usr/local/bin/imv
+
+# `nb`
+RUN wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
+	chmod +x /usr/local/bin/nb && \
+	EDITOR=kak nb completions install --download
+RUN npm install -g mozilla-readability-cli @andymatuschak/note-link-janitor
+
+# Lzip suite
+WORKDIR /build
+RUN wget https://download.savannah.nongnu.org/releases/lzip/lzip-1.26.tar.gz \
+	&& tar -xf lzip-*.tar.gz \
+	&& cd lzip-1.26 \
+	&& ./configure \
+	&& make -j"$(nproc)" check \
+	&& make install
+RUN wget https://download.savannah.nongnu.org/releases/lzip/lzlib/lzlib-1.16.tar.lz \
+	&& tar -xf lzlib-*.tar.lz \
+	&& cd lzlib-1.16 \
+	&& ./configure \
+	&& make -j"$(nproc)" check \
+	&& make install
+RUN wget https://download.savannah.nongnu.org/releases/lzip/plzip/plzip-1.13.tar.lz \
+	&& tar -xf plzip-*.tar.lz \
+	&& cd plzip-1.13 \
+	&& ./configure \
+	&& make -j"$(nproc)" check \
+	&& make install
+RUN wget https://download.savannah.nongnu.org/releases/lzip/tarlz/tarlz-0.29.tar.lz \
+	&& tar -xf tarlz-*.tar.lz \
+	&& cd tarlz-0.29 \
+	&& ./configure \
+	&& make -j"$(nproc)" check \
+	&& make install
+RUN wget https://download.savannah.nongnu.org/releases/lzip/lziprecover/lziprecover-1.26.tar.lz \
+	&& tar -xf lziprecover-*.tar.lz \
+	&& cd lziprecover-1.26 \
+	&& ./configure \
+	&& make -j"$(nproc)" check \
+	&& make install
+
 
 RUN useradd -m -G wheel -s /usr/bin/fish tom
-
+WORKDIR /home/tom
+RUN rm -rf /build
 RUN printf '%%wheel ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/99_tom
-
 USER tom
 
-WORKDIR /home/tom
+RUN rustup default stable
 
 RUN git clone https://aur.archlinux.org/yay.git \
 	&& cd yay \
@@ -107,16 +161,10 @@ RUN git clone https://aur.archlinux.org/yay.git \
 	&& rm -rf yay
 
 RUN yay -S --noconfirm \
-	crush \
-	deno-readability-cli \
-	openai-codex-bin \
-	tidy-viewer
-
-RUN sudo wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
-	sudo chmod +x /usr/local/bin/nb && \
-	EDITOR=kak sudo --preserve-env=EDITOR nb completions install --download
-
-RUN sudo npm install -g @andymatuschak/note-link-janitor
+	tidy-viewer \
+	cmake-language-server \
+	crystalline-bin \
+	clojure-lsp-bin
 
 RUN sudo mandb -c
 

@@ -211,12 +211,12 @@ user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 
 // PREF: delete all browsing data on shutdown
-user_pref("privacy.sanitize.sanitizeOnShutdown", true);
-user_pref("privacy.clearOnShutdown_v2.cache", true);
-user_pref("privacy.clearOnShutdown_v2.cookiesAndStorage", true);
-user_pref("privacy.clearOnShutdown_v2.browsingHistoryAndDownloads", true);
-user_pref("privacy.clearOnShutdown_v2.downloads", true); // [HIDDEN]
-user_pref("privacy.clearOnShutdown_v2.formdata", true);
+//user_pref("privacy.sanitize.sanitizeOnShutdown", true);
+//user_pref("privacy.clearOnShutdown_v2.cache", true);
+//user_pref("privacy.clearOnShutdown_v2.cookiesAndStorage", true);
+//user_pref("privacy.clearOnShutdown_v2.browsingHistoryAndDownloads", true);
+//user_pref("privacy.clearOnShutdown_v2.downloads", true); // [HIDDEN]
+//user_pref("privacy.clearOnShutdown_v2.formdata", true);
 
 // PREF: after crashes or restarts, do not save extra session data
 // such as form content, scrollbar positions, and POST data
