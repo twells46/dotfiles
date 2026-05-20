@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/bin/sh
 
 if [ -n "${WAYLAND_DISPLAY}" ]; then
 	dmenu="wmenu"
