@@ -12,6 +12,7 @@ RUN pacman -S --noconfirm \
 	asciidoctor \
 	base-devel \
 	bash-language-server \
+	bat \
 	bc \
 	blender \
 	chafa \
@@ -37,6 +38,7 @@ RUN pacman -S --noconfirm \
 	imagemagick \
 	inetutils \
 	jq \
+	just \
 	kakoune \
 	kakoune-lsp \
 	kguiaddons \
@@ -165,6 +167,9 @@ RUN yay -S --noconfirm \
 	cmake-language-server \
 	crystalline-bin \
 	clojure-lsp-bin
+
+RUN uv tool install -p 3.13 serena-agent@latest --prerelease=allow \
+	&& serena init
 
 RUN sudo mandb -c
 

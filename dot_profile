@@ -15,6 +15,7 @@ export FZF_DEFAULT_OPTS="--reverse --height=50%"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export NBRC_PATH="$XDG_CONFIG_HOME/nb/nbrc"
 . "${XDG_CONFIG_HOME}/nnn/nnnconf"
+export CODEX_HOME="$XDG_CONFIG_HOME/codex"
 
 export CFLAGS="-O2 -march=native"
 
