@@ -112,7 +112,7 @@ RUN pacman -S --noconfirm \
 RUN wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
 	chmod +x /usr/local/bin/nb && \
 	EDITOR=kak nb completions install --download
-RUN npm install -g mozilla-readability-cli @andymatuschak/note-link-janitor
+RUN npm install -g mozilla-readability-cli @andymatuschak/note-link-janitor @vtsls/language-server
 
 # Lzip suite
 WORKDIR /build
