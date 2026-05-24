@@ -1,12 +1,16 @@
 #!/usr/bin/env dash
 
 draw() {
-	if [ "${TERM}" = "foot" ] || [ "${TERM}" = "st" ]; then
-		chafa -f sixel -s "${w}x${h}" --animate off --polite on -t 1 --bg black "$1"
-	elif [ "${TERM}" = "xterm-kitty" ]; then
-		kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
-		exit 1
-	fi
+    if [ -p "$FIFO_UEBERZUG" ]; then
+        path="$(readlink -f -- "$1" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        # $((y+1)) prevents covering `file -b`
+        printf '{"action":"add","identifier":"preview","x":%d,"y":%d,"width":%d,"height":%d,"scaler":"contain","scaling_position_x":0.5,"scaling_position_y":0.5,"path":"%s"}\n' "$x" "$((y+1))" "$w" "$((h-1))" "$path" >"$FIFO_UEBERZUG"
+    elif [ "${TERM}" = "foot" ] || [ "${TERM}" = "st" ]; then
+        chafa -f sixel -s "${w}x${h}" --animate off --polite on -t 1 --bg black "$1"
+    elif [ "${TERM}" = "xterm-kitty" ]; then
+        kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
+    fi
+    exit 1
 }
 
 file="$1"
@@ -16,13 +20,13 @@ x="$4"
 y="$5"
 
 find_cache() {
-	local CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
-	[ ! -d "${CACHE_DIR}" ] && mkdir -p "${CACHE_DIR}"
-	#local FILE_LOC="$(pwd)/${file}"
-	local TMP
-	TMP="$(head -c 1024 "$file" | cksum)"
-	#CACHE_F="${CACHE_DIR}/${TMP##* }"
-	echo "${CACHE_DIR}/${TMP%% *}"
+    local CACHE_DIR="${TMPDIR:-$HOME/.cache}/pv_cache"
+    [ ! -d "${CACHE_DIR}" ] && mkdir -p "${CACHE_DIR}"
+    #local FILE_LOC="$(pwd)/${file}"
+    local TMP
+    TMP="$(head -c 1024 "$file" | cksum)"
+    #CACHE_F="${CACHE_DIR}/${TMP##* }"
+    echo "${CACHE_DIR}/${TMP%% *}"
 }
 
 cache() {
@@ -47,8 +51,8 @@ case "$(file -Lb --mime-type "$file")" in
                 ;;
             *)
                 # If highlight can't determine a language, show raw text
-            	highlight -O ansi --line-range=0-100 -- "$file" 2>/dev/null || head -n 100 -- "$file"
-            	;;
+                highlight -O ansi --line-range=0-100 -- "$file" 2>/dev/null || head -n 100 -- "$file"
+                ;;
         esac
         ;;
     application/zstd|application/x-xz|application/gzip|application/x-bzip2|application/zlib|application/x-tar|application/x-lzip)
@@ -75,15 +79,10 @@ case "$(file -Lb --mime-type "$file")" in
     application/octet-stream)
         case "$file" in
             *.stl|*.STL)
-        	CACHE_F="$(find_cache)"
-                [ ! -e "${CACHE_F}" ] && blender -b -P /home/tom/.local/bin/render_single.py -- "${file}" -o "${CACHE_F}"  >/dev/null 2>&1
+                CACHE_F="$(find_cache)"
+                [ ! -e "${CACHE_F}" ] && blender -b -P /home/tom/.local/bin/render_single.py -- "${file}" -o "${CACHE_F}" >/dev/null 2>&1
                 draw "${CACHE_F}"
                 ;;
-            *)
-        	file -b "$1"
-        	;;
         esac
         ;;
-    *)
-        file -b "$1"
 esac

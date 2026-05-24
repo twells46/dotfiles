@@ -5,9 +5,11 @@
 
 #toggle_theme & thmpid=$!
 
+mpd
 remaps
 shst &
-notify.sh &
-mpd
+dunst &
+mpdris2-rs &
+#notify.sh &
 
 #[ -n "$thmpid" ] && wait "$thmpid"
