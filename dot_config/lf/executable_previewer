@@ -5,7 +5,7 @@ draw() {
         path="$(readlink -f -- "$1" | sed 's/\\/\\\\/g;s/"/\\"/g')"
         # $((y+1)) prevents covering `file -b`
         printf '{"action":"add","identifier":"preview","x":%d,"y":%d,"width":%d,"height":%d,"scaler":"contain","scaling_position_x":0.5,"scaling_position_y":0.5,"path":"%s"}\n' "$x" "$((y+1))" "$w" "$((h-1))" "$path" >"$FIFO_UEBERZUG"
-    elif [ "${TERM}" = "foot" ] || [ "${TERM}" = "st" ]; then
+    elif [ "${TERM}" = "foot" ]; then
         chafa -f sixel -s "${w}x${h}" --animate off --polite on -t 1 --bg black "$1"
     elif [ "${TERM}" = "xterm-kitty" ]; then
         kitten icat --stdin no --transfer-mode memory --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
