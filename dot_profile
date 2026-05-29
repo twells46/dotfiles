@@ -16,6 +16,11 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export NBRC_PATH="$XDG_CONFIG_HOME/nb/nbrc"
 . "${XDG_CONFIG_HOME}/nnn/nnnconf"
 export CODEX_HOME="$XDG_CONFIG_HOME/codex"
+export OLLAMA_MODELS="$XDG_DATA_HOME/ollama/models"
+export OLLAMA_NOHISTORY=1
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export ZDOTDIR=$HOME/.config/zsh
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc":"$XDG_CONFIG_HOME/gtk-2.0/gtkrc.mine"
 
 export CFLAGS="-O2 -march=native"
 
@@ -39,7 +44,6 @@ export GHCUP_USE_XDG_DIRS="1"
 [ -f "$XDG_DATA_HOME/ghcup/env" ] && . "$XDG_DATA_HOME/ghcup/env"
 
 # Ollama
-export OLLAMA_NOHISTORY=1
 
 # Plan9
 #export PLAN9="/usr/local/plan9"

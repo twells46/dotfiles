@@ -14,14 +14,18 @@ RUN pacman -S --noconfirm \
 	bash-language-server \
 	bat \
 	bc \
+	bind \
 	blender \
 	chafa \
+	checkbashisms \
 	chezmoi \
 	clang \
 	cmake \
+	coreutils \
 	dash \
 	fd \
 	ffmpegthumbnailer \
+	findutils \
 	fish \
 	fzf \
 	gcr \
@@ -38,6 +42,7 @@ RUN pacman -S --noconfirm \
 	imagemagick \
 	inetutils \
 	jq \
+	just \
 	just \
 	kakoune \
 	kakoune-lsp \
@@ -79,6 +84,7 @@ RUN pacman -S --noconfirm \
 	rsync \
 	rust-analyzer \
 	rustup \
+	sed \
 	shellcheck \
 	shfmt \
 	socat \
@@ -86,9 +92,12 @@ RUN pacman -S --noconfirm \
 	task \
 	taskwarrior-tui \
 	texlab \
+	tidy \
 	tig \
 	timew \
+	tmux \
 	tree \
+	ugrep \
 	unzip \
 	uv \
 	visidata \
@@ -104,15 +113,16 @@ RUN pacman -S --noconfirm \
 	zathura-cb \
 	zathura-pdf-mupdf \
 	zathura-ps \
-	zip
-	zls \
+	zip \
+	zls
 
 
 # `nb`
 RUN wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
 	chmod +x /usr/local/bin/nb && \
 	EDITOR=kak nb completions install --download
-RUN npm install -g mozilla-readability-cli @andymatuschak/note-link-janitor @vtsls/language-server
+
+RUN npm install -g @andymatuschak/note-link-janitor
 
 # Lzip suite
 WORKDIR /build
@@ -163,13 +173,15 @@ RUN git clone https://aur.archlinux.org/yay.git \
 	&& rm -rf yay
 
 RUN yay -S --noconfirm \
-	tidy-viewer \
+	clojure-lsp-bin \
 	cmake-language-server \
 	crystalline-bin \
-	clojure-lsp-bin
+	deno-readability-cli \
+	tidy-viewer \
+	vtsls
 
-RUN uv tool install -p 3.13 serena-agent@latest --prerelease=allow \
-	&& serena init
+#RUN uv tool install -p 3.13 serena-agent@latest --prerelease=allow \
+#	&& serena init
 
 RUN sudo mandb -c
 
