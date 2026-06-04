@@ -50,7 +50,7 @@ export GHCUP_USE_XDG_DIRS="1"
 #export PATH="$PATH:$PLAN9/bin"
 
 # Misc.
-export VSCODE_PORTABLE="$XDG_DATA_HOME/vscode"
+#export VSCODE_PORTABLE="$XDG_DATA_HOME/vscode"
 export RANDFILE="$XDG_CACHE_HOME/rnd"
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
 export NPM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
