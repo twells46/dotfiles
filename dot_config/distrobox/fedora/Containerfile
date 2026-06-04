@@ -1,0 +1,114 @@
+FROM fedora-toolbox:44
+
+RUN printf '[main]\ndefaultyes=True\nmax_parallel_downloads=8\n' >> /etc/dnf/libdnf5.conf.d/99-user.conf
+
+RUN dnf install -y \
+	age \
+	aria2 \
+	asciidoc \
+	bc \
+	chafa \
+	chezmoi \
+	cmake \
+	curl \
+	dash \
+	fd-find \
+	ffmpeg-free \
+	ffmpegthumbnailer \
+	fish \
+	fzf \
+	gcc \
+	gcr \
+	gh \
+	git \
+	git-filter-repo \
+	git-lfs \
+	glow \
+	gopls \
+	GraphicsMagick \
+	GraphicsMagick-doc \
+	highlight \
+	jq \
+	kakoune \
+	less \
+	libnotify \
+	lowdown \
+	lsof \
+	make \
+	man-db \
+	man-pages \
+	mpv \
+	mupdf \
+	nodejs \
+	openssh \
+	pandoc-cli \
+	pass \
+	pass-otp \
+	patch \
+	perl-Image-ExifTool \
+	pigz \
+	renameutils \
+	ripgrep \
+	rsync \
+	rubygem-asciidoctor \
+	rubygem-asciidoctor-doc \
+	rubygem-asciidoctor-pdf \
+	rubygem-asciidoctor-pdf-doc \
+	ShellCheck \
+	shfmt \
+	socat \
+	sudo \
+	task \
+	timew \
+	tree \
+	unzip \
+	visidata \
+	w3m\
+	wget \
+	which \
+	wl-clipboard \
+	zathura \
+	zathura-cb \
+	zathura-pdf-mupdf \
+	zathura-ps \
+	zip
+
+# renameutils conflicts with imv, so install after so that the existing `/usr/bin/imv` takes precedence
+#RUN dnf in -y renameutils
+
+RUN useradd -m -G wheel -s /usr/bin/fish tom
+
+RUN printf '%%wheel ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/99_tom
+
+RUN curl -OL https://github.com/kakoune-lsp/kakoune-lsp/releases/download/v20.0.0/kakoune-lsp-v20.0.0-x86_64-unknown-linux-musl.tar.gz \
+    && tar -xzvf kakoune-lsp-v20.0.0-*.tar.gz \
+    && mv kak-lsp /usr/bin \
+    && rm kakoune-lsp-v20.0.0-*.tar.gz
+
+RUN curl -OL https://github.com/gokcehan/lf/releases/download/r41/lf-linux-amd64.tar.gz \
+    && tar -xf lf-linux-amd64.tar.gz \
+    && mv lf /usr/bin/ \
+    && rm lf-linux-amd64.tar.gz
+
+RUN curl -OL https://raw.githubusercontent.com/gokcehan/lf/refs/heads/master/lf.1 \
+    && mv lf.1 /usr/share/man/man1/
+
+
+RUN wget https://raw.github.com/xwmx/nb/master/nb -O /usr/local/bin/nb && \
+	chmod +x /usr/local/bin/nb && \
+	EDITOR=kak nb completions install --download
+
+RUN curl -OL https://github.com/alexhallam/tv/releases/download/1.8.93/tidy-viewer-1.8.93-2.x86_64.rpm \
+    && dnf install -y ./tidy-viewer-1.8.93-2.x86_64.rpm \
+    && rm tidy-viewer-1.8.93-2.x86_64.rpm
+
+RUN npm install -g mozilla-readability-cli @andymatuschak/note-link-janitor
+
+RUN mandb -c
+
+USER tom
+
+WORKDIR /home/tom
+
+RUN sudo mandb -c
+

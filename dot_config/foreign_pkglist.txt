@@ -1,9 +1,10 @@
-code-features
-herbe
+clojure-lsp-bin
+cmake-language-server
+crystalline-bin
+deno-readability-cli
 jay
 librewolf-bin
-piper-tts-bin
-piper-voices-en-us
+tidy-viewer
 tiramisu-git
 tomb
 vtsls
