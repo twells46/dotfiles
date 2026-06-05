@@ -6,23 +6,22 @@
     // Define modules to use
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-{{- if .systemd }}
-    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "privacy", "systemd-failed-units"],
-{{ else }}
-    "modules-right": ["mpd", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "privacy"],
-{{- end }}
+    "modules-right": ["mpris", "network", "bluetooth", "wireplumber", "cpu", "memory", "battery", "power-profiles-daemon", "clock", "privacy", "systemd-failed-units"],
+
 
     // Configure modules
     "sway/window": {
         "max-length": 100
     },
     "network": {
-        "format": "{essid}({frequency}) {signalStrength}%",
+        "format": "{essid}({frequency}) {signalStrength}% {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "format-ethernet": "{bandwidthDownBytes}  {bandwidthUpBytes}",
         "format-disconnected": "",
-        "tooltip-format": "<big>{ifname}</big>\n<b>{ipaddr}/{cidr}</b> via <b>{gwaddr}</b>\n{bandwidthDownBytes} {bandwidthUpBytes}",
+        "tooltip-format": "<big>{ifname}</big>\n<b>{ipaddr}/{cidr}</b> via <b>{gwaddr}</b>\n{bandwidthDownBytes}  {bandwidthUpBytes}",
         "tooltip-format-disconnected": "",
     },
     "mpris": {
+	"format": "{dynamic}",
         "dynamic-len": 50,
     },
     "mpd": {

@@ -84,7 +84,7 @@ map G
 map ge bottom
 
 cmd qmv ${{
-    qmv .
+    vimv
 }}
 
 map R

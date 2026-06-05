@@ -268,16 +268,13 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec grim
     # Media control
-    bindsym Shift+XF86AudioPlay exec playerctl play-pause
-    bindsym Shift+XF86AudioNext exec playerctl next
-    bindsym Shift+XF86AudioPrev exec playerctl previous
-    bindsym XF86AudioPlay exec mpc toggle
-    bindsym XF86AudioNext exec mpc next
-    bindsym XF86AudioPrev exec mpc prev
-    bindsym $mod+backslash exec mpc toggle
-    bindsym $mod+bracketright exec mpc next
-    bindsym $mod+bracketleft exec mpc seek 0
-    bindsym $mod+Shift+bracketleft exec mpc prev
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+    bindsym $mod+backslash exec playerctl play-pause
+    bindsym $mod+bracketright exec playerctl next
+    bindsym $mod+bracketleft exec playerctl seek 0
+    bindsym $mod+Shift+bracketleft exec playerctl previous
 
 default_border pixel 2
 default_floating_border pixel 2
