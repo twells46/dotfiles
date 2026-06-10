@@ -1,25 +1,9 @@
 #!/bin/sh
 set -eu
 
-src="/home/tom/"
-dest_root="/backup/"
-exclude_file="${XDG_CONFIG_HOME}/backup/home.exclude"
-
-timestamp="$(date +%Y-%m-%dT%H%M%S)"
-new="$dest_root/$timestamp"
-prev=""
-
-if [ -L "$dest_root/latest" ]; then
-	prev="$(readlink -f "$dest_root/latest")"
-fi
-
-mkdir -p "$new"
-
-rsync -aHAX --numeric-ids --delete \
-	-v --info=progress2 \
-	--exclude-from="$exclude_file" \
-	${prev:+--link-dest="$prev"} \
-	"$src" "$new/"
-
-ln -sfn "$(basename "$new")" "$dest_root/latest"
-echo "Created backup: $new"
+src="$HOME"
+backup_root="/backup"
+timestamp="$(date +%FT%H%M%S)"
+new="$backup_root/home_$timestamp"
+cp -a --reflink=always "$src" "$new"
+ln -sfn "$new" "$backup_root/latest"

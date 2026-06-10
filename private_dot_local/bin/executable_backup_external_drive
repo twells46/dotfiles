@@ -1,0 +1,38 @@
+#!/bin/sh
+set -eu
+
+src="/backup"
+dest_root="/run/media/tom/store/backups"
+exclude_file="${XDG_CONFIG_HOME}/backup/home.exclude"
+prev_dest=""
+
+find "$src/" -mindepth 1 -maxdepth 1 -type d | sort |
+while IFS= read -r src_dir; do
+    name=$(basename "$src_dir")
+    dest="$dest_root/$name"
+    tmp="$dest_root/.${name}.tmp"
+
+    if [ -e "$dest" ]; then
+        echo "Skipping existing backup: $dest" >&2
+        prev_dest="$dest"
+        continue
+    fi
+
+    rm -rf "$tmp"
+
+    if [ -n "$prev_dest" ]; then
+        rsync -aHAX --numeric-ids --delete \
+            --info=progress2 \
+            --exclude-from="$exclude_file" \
+            --link-dest="$prev_dest" \
+            "$src_dir/" "$tmp/"
+    else
+        rsync -aHAX --numeric-ids --delete \
+            --info=progress2 \
+            --exclude-from="$exclude_file" \
+            "$src_dir/" "$tmp/"
+    fi
+
+    mv "$tmp" "$dest"
+    prev_dest="$dest"
+done

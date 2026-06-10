@@ -33,7 +33,7 @@ cache() {
     exec "$@" "$file" > "${CACHE_F}"
 }
 
-file -b "${file}"
+file -b "${file}" | head -c "${w}"
 
 case "$(file -Lb --mime-type "$file")" in
     image/*)
