@@ -10,14 +10,9 @@
 /****************************************************************************
  * Betterfox                                                                *
  * "Ad meliora"                                                             *
- * version: 149                                                             *
+ * version: 150                                                             *
  * url: https://github.com/yokoffing/Betterfox                              *
 ****************************************************************************/
-
-/****************************************************************************
- * SECTION: FASTFOX                                                         *
-****************************************************************************/
-user_pref("gfx.canvas.accelerated.cache-size", 256); // reset pref
 
 /****************************************************************************
  * SECTION: SECUREFOX                                                       *
@@ -59,7 +54,7 @@ user_pref("network.prefetch-next", false);
 /** SEARCH / URL BAR ***/
 user_pref("browser.urlbar.trimHttps", true);
 user_pref("browser.urlbar.untrimOnUserInteraction.featureGate", true);
-user_pref("browser.search.separatePrivateDefault.ui.enabled", false);
+user_pref("browser.search.separatePrivateDefault.ui.enabled", true);
 user_pref("browser.search.suggest.enabled", false);
 user_pref("browser.urlbar.quicksuggest.enabled", false);
 user_pref("browser.urlbar.groupLabels.enabled", false);
@@ -189,6 +184,13 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 // visit https://github.com/yokoffing/Betterfox/blob/main/Smoothfox.js
 // Enter your scrolling overrides below this line:
 
+/****************************************************************************************
+ * OPTION: INSTANT SCROLLING (SIMPLE ADJUSTMENT)                                       *
+****************************************************************************************/
+// recommended for 60hz+ displays
+user_pref("apz.overscroll.enabled", true); // DEFAULT NON-LINUX
+user_pref("general.smoothScroll", true); // DEFAULT
+user_pref("mousewheel.default.delta_multiplier_y", 275); // 250-400; adjust this number to your liking
 
 /****************************************************************************
  * START: MY OVERRIDES                                                      *
@@ -196,6 +198,9 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 // visit https://github.com/yokoffing/Betterfox/wiki/Common-Overrides
 // visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
 // Enter your personal overrides below this line:
+
+// PREF: allow websites to ask you for your location
+user_pref("permissions.default.geo", 0);
 
 // PREF: disable Firefox Sync
 user_pref("identity.fxaccounts.enabled", false);
@@ -210,17 +215,8 @@ user_pref("signon.rememberSignons", false);
 user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 
-// PREF: delete all browsing data on shutdown
-//user_pref("privacy.sanitize.sanitizeOnShutdown", true);
-//user_pref("privacy.clearOnShutdown_v2.cache", true);
-//user_pref("privacy.clearOnShutdown_v2.cookiesAndStorage", true);
-//user_pref("privacy.clearOnShutdown_v2.browsingHistoryAndDownloads", true);
-//user_pref("privacy.clearOnShutdown_v2.downloads", true); // [HIDDEN]
-//user_pref("privacy.clearOnShutdown_v2.formdata", true);
-
-// PREF: after crashes or restarts, do not save extra session data
-// such as form content, scrollbar positions, and POST data
-user_pref("browser.sessionstore.privacy_level", 2);
+// PREF: disable passkeys
+user_pref("security.webauth.webauthn", false);
 
 // PREF: hide site shortcut thumbnails on New Tab page
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
@@ -231,8 +227,22 @@ user_pref("browser.newtabpage.activity-stream.showWeather", false);
 // PREF: hide dropdown suggestions when clicking on the address bar
 user_pref("browser.urlbar.suggest.topsites", false);
 
+// PREF: enforce certificate pinning
+// [ERROR] MOZILLA_PKIX_ERROR_KEY_PINNING_FAILURE
+// 1 = allow user MiTM (such as your antivirus) (default)
+// 2 = strict
+user_pref("security.cert_pinning.enforcement_level", 2);
+
+// PREF: disable service workers
+// This will break push notifications (blocked in Betterfox by default).
+user_pref("dom.serviceWorkers.enabled", false);
+user_pref("dom.serviceWorkers.privateBrowsing.enabled", false);
+
+// PREF: disable JIT optimization
+// This removes most of the attack surface while keeping JIT compilation.
+user_pref("javascript.options.ion", false);
+user_pref("javascript.options.wasm_optimizingjit", false);
+
 /****************************************************************************
  * END: BETTERFOX                                                           *
 ****************************************************************************/
-
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
