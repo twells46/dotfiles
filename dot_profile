@@ -64,6 +64,7 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/config"
+export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
 export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
 
 # Unused

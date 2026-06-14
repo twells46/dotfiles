@@ -202,6 +202,11 @@ user_pref("mousewheel.default.delta_multiplier_y", 275); // 250-400; adjust this
 // PREF: allow websites to ask you for your location
 user_pref("permissions.default.geo", 0);
 
+// PREF: Fix major site issues
+user_pref("privacy.trackingprotection.allow_list.baseline.enabled", true);
+// PREF: Fix minor site issues
+user_pref("privacy.trackingprotection.allow_list.convenience.enabled", false);
+
 // PREF: disable Firefox Sync
 user_pref("identity.fxaccounts.enabled", false);
 
@@ -223,6 +228,7 @@ user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 
 // PREF: hide weather on New Tab page
 user_pref("browser.newtabpage.activity-stream.showWeather", false);
+user_pref("browser.newtabpage.activity-stream.feeds.weatherfeed", false);
 
 // PREF: hide dropdown suggestions when clicking on the address bar
 user_pref("browser.urlbar.suggest.topsites", false);

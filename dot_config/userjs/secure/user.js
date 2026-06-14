@@ -220,6 +220,7 @@ user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 
 // PREF: hide weather on New Tab page
 user_pref("browser.newtabpage.activity-stream.showWeather", false);
+user_pref("browser.newtabpage.activity-stream.feeds.weatherfeed", false);
 
 // PREF: hide dropdown suggestions when clicking on the address bar
 user_pref("browser.urlbar.suggest.topsites", false);
