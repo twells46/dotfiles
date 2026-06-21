@@ -25,5 +25,3 @@ dox/reading/
 .local/share/flatpak/
 .local/share/containers/
 .local/opt/
-openpgp-revocs.d/
-crls.d/

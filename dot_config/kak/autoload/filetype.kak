@@ -1,4 +1,5 @@
-# Remove kakoune stdlib file detection and replace it with customized version
+# Remove kakoune stdlib file detection and replace it with customized version.
+# Corrects highlighting in shell scripts when using shebangs that `file -b` doesn't pick up.
 remove-hooks global file-detection
 
 define-command -hidden filetype %{ evaluate-commands %sh{

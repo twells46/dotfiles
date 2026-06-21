@@ -1,7 +1,7 @@
 # Dotfiles
 
 These are my personal dotfiles.
-I do not use all of these programs all the time (that's why there are five different text editor configs), so some may be broken or out of date.
+I do not use all of these programs all the time, so some may be broken or out of date.
 
 ## Usage
 
@@ -38,15 +38,10 @@ Most of the directories are pretty self-explanatory -- just look up the program 
 
 - **service**: `runit` user services managed using `turnstiled`.
 [More info](https://docs.voidlinux.org/config/services/user-services.html).
-- **service-env**: Environment variables for user services.
-- **shell**: Useful environment variables for interactive shell usage.
-This sets the variables for `dash` (user shell), which are inherited by `fish`, which I call explicitly when opening a terminal window (i.e. `st /usr/bin/fish`).
-- **scripts**: Some scripts that I have written and used at various points in time.
-Many of them are only really useful for quick reference, but there are a few actually useful ones.
+- **service-env**: Environment variables for turnstiled user services.
 - **userjs**: My  `user.js` files for Firefox and friends.
-`worstfox` is a combination of [Arkenfox](https://github.com/arkenfox/user.js/) and [Betterfox](https://github.com/yokoffing/BetterFox).
-`betterfox` is just Betterfox with a couple small tweaks.
-I symlink these into two profiles: `worstfox` for secure browsing and `betterfox` for when the secure profile breaks.
+`secure` is [Betterfox](https://github.com/yokoffing/BetterFox) with most of the security recommendation applied.
+`default` is Betterfox with a more permissive stance.
 
 ## Chezmoi config
 
@@ -57,3 +52,14 @@ I set a few custom variables in my chezmoi config to reconcile differences betwe
 - `colors`: `light` or `dark`, applies theming to a few programs.
 - `dp_scale`: Display scale for sway.
 - `systemd`: `true` or `false`. Is `systemd` present on the system?
+
+Set them in `chezmoi.toml` like this:
+
+```toml
+[data]
+    gpg_key_git = "<key>"
+    git_email = "<email>"
+    colors = "light"
+    dp_scale = "1.0"
+    systemd = true
+```
